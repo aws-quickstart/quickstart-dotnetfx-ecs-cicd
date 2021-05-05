@@ -1,7 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: This Quick Start deploys CodeBuild, CodePipeline and CodeDeploy for .NET to Elastic Container Service
 #TODO:
-# * Try to narrow down ContainerImageBuildMachineRole's S3 perms
 # * Make sure all resources are using the CWL group
 Parameters:
   GitHubRepositoryName:
@@ -245,7 +244,7 @@ Resources:
                   Action:
                   - 'ssm:SendCommand'
                 - Effect: Allow
-                  Resource: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/${ContainerImageBuildMachineRole}
+                  Resource: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/${ContainerImageBuildServerRole}
                   Action:
                   - 'iam:PassRole'
                 - Effect: Allow
@@ -362,7 +361,7 @@ Resources:
       Tags:
         - Key: !Ref TagKey
           Value: !Ref TagValue
-  ContainerImageBuildMachineRole: 
+  ContainerImageBuildServerRole: 
     Type : AWS::IAM::Role
     Properties:
       Policies:
@@ -373,12 +372,40 @@ Resources:
                 Resource: !Sub arn:${AWS::Partition}:s3:::${CodePipelineArtifactStoreBucket}/*
                 Effect: Allow
           PolicyName: s3-instance-bucket-policy
+        - PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                - "ecr:GetAuthorizationToken"
+                Resource: "*"
+                Effect: Allow
+          PolicyName: ecr-instance-policy
+        - PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                - "ecr:BatchCheckLayerAvailability"
+                - "ecr:GetDownloadUrlForLayer"
+                - "ecr:GetRepositoryPolicy"
+                - "ecr:DescribeRepositories"
+                - "ecr:ListImages"
+                - "ecr:DescribeImages"
+                - "ecr:BatchGetImage"
+                - "ecr:GetLifecyclePolicy"
+                - "ecr:GetLifecyclePolicyPreview"
+                - "ecr:ListTagsForResource"
+                - "ecr:DescribeImageScanFindings"
+                - "ecr:InitiateLayerUpload"
+                - "ecr:UploadLayerPart"
+                - "ecr:CompleteLayerUpload"
+                - "ecr:PutImage"
+                Resource: !GetAtt AppContainerRepo.Arn
+                Effect: Allow
+          PolicyName: ecr-resource-instance-policy
       Path: /
       ManagedPolicyArns:
       - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore'
       - !Sub 'arn:${AWS::Partition}:iam::aws:policy/CloudWatchAgentServerPolicy'
-      - !Sub "arn:${AWS::Partition}:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
-      - !Sub "arn:${AWS::Partition}:iam::aws:policy/AmazonS3FullAccess"
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -391,11 +418,11 @@ Resources:
       Tags:
         - Key: !Ref TagKey
           Value: !Ref TagValue
-  IamInstanceProfile:
+  ContainerImageBuildServerInstanceProfile:
     Type: "AWS::IAM::InstanceProfile"
     Properties:
       Roles:
-      - !Ref ContainerImageBuildMachineRole
+      - !Ref ContainerImageBuildServerRole
   BuildDotNetContainerDocument:
     Type: AWS::SSM::Document
     Properties:
@@ -416,7 +443,7 @@ Resources:
           IamInstanceProfileName:
             type: String
             description: (Required) The IAM instance profile to attach to the build instance.
-            default: !Ref IamInstanceProfile
+            default: !Ref ContainerImageBuildServerInstanceProfile
           InstanceVolumeSize:
             type: Integer
             description: (Required) Desired volume size (GiB) of the build instance.
@@ -429,7 +456,7 @@ Resources:
             type: String
             description: (Required) Build artifact key.
           EcrRepoName: 
-            default: !Sub "${AppContainerRepo}"
+            default: !Ref AppContainerRepo
             description: "ECR Repo Name"
             type: "String"
           ImageTag:
@@ -532,10 +559,10 @@ Resources:
                 $tmpFolder = $(Get-Location).Path
                 $srcFolder = "$tmpFolder\src"
                 $key = "{{SourceArtifactS3Path}}"
-                $srcFileName = "$(Split-Path $key -Leaf)"
+                $srcFileName = "$(Split-Path $key -Leaf).zip"
 
-                Read-S3Object -BucketName "{{PipelineBucketName}}" -Key $key -File "$srcFileName.zip"
-                Expand-Archive -Path "$tmpFolder\$srcFileName.zip" -DestinationPath "$srcFolder" -Force
+                Read-S3Object -BucketName "{{PipelineBucketName}}" -Key $key -File $srcFileName
+                Expand-Archive -Path "$tmpFolder\$srcFileName" -DestinationPath "$srcFolder" -Force
                 
                 Write-Host "*****Building Docker image...*****"
                 
@@ -548,7 +575,7 @@ Resources:
 
                 if ($customTag -and $($customTag -ne "latest")) {
                   $hasCustomTag = $True
-                  $uriWithTag = "$($repoUri):{{ImageTag}}"
+                  $uriWithTag = "$($repoUri):$customTag"
                   $buildArgs += @("-t", $uriWithTag)
                 }
 
@@ -567,7 +594,7 @@ Resources:
                 docker push $repoUri --all-tags
 
                 if ($LASTEXITCODE -ne 0) {
-                  throw "'docker push $latestUri' execution failed with exit code $LASTEXITCODE."
+                  throw "'docker push $repoUri --all-tags' execution failed with exit code $LASTEXITCODE."
                 }
               executionTimeout: '7200'
             CloudWatchOutputConfig:
@@ -588,7 +615,3 @@ Resources:
       Tags:
       - Key: !Ref TagKey
         Value: !Ref TagValue
-# Outputs:
-#   CodePipelineName:
-#     Description: CodePipeline  Name
-#     Value: !Ref AppPipeline
