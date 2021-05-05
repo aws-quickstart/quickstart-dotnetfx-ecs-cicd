@@ -305,7 +305,7 @@ Resources:
               commands:
                 - BUILD_ID=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-8)
                 - IMAGE_TAG=build-$BUILD_ID
-                - SRC_ARTIFACT_FULL_S3_PATH=${!CODEBUILD_SOURCE_VERSION#*"arn:${AWS::Partition}:s3:::"}
+                - SRC_ARTIFACT_FULL_S3_PATH=${!CODEBUILD_SOURCE_VERSION#*"s3:::"}
                 - SRC_ARTIFACT_S3_PATH=${!SRC_ARTIFACT_FULL_S3_PATH#*"/"}
                 - SRC_ARTIFACT_BUCKET_NAME=$(echo $SRC_ARTIFACT_FULL_S3_PATH | cut -c 1-$((${!#SRC_ARTIFACT_FULL_S3_PATH} - ${!#SRC_ARTIFACT_S3_PATH} - 1)))
                 - echo SRC_ARTIFACT_FULL_S3_PATH=$SRC_ARTIFACT_FULL_S3_PATH
