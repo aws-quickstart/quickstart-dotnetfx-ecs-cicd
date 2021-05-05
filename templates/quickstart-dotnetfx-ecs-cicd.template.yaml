@@ -1,7 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: This Quick Start deploys CodeBuild, CodePipeline and CodeDeploy for .NET to Elastic Container Service
-#TODO:
-# * Make sure all resources are using the CWL group
 Parameters:
   GitHubRepositoryName:
     Type: String
