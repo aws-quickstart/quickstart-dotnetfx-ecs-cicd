@@ -1,0 +1,20 @@
+global:
+  owner: csantosb@amazon.com
+  qsname: quickstart-dotnetfx-ecs-cicd
+  regions:
+    - ap-southeast-1
+    - ap-southeast-2
+    - eu-central-1
+    - eu-west-1
+    - us-east-1
+    - us-west-1
+    - us-west-2
+  reporting: true
+  package_lambda: false
+tests:
+  lab-master-vpc:
+    template: ./templates/quickstart-dotnetfx-ecs-cicd.template.yaml
+    parameters:
+      EcsClusterName: "quickstart-cluster"
+      EcsServiceName: "dotnetfx"
+      TaskContainerName: "sampleapp"
