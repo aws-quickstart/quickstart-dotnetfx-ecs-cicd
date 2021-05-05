@@ -1,0 +1,13 @@
+project:
+  name: quickstart-dotnetfx-ecs-cicd
+  regions:
+  - us-east-1
+  package_lambda: false
+tests:
+  default:
+    template: ./templates/quickstart-dotnetfx-ecs-cicd.template.yaml
+    parameters:
+      EcsClusterName: "quickstart-cluster"
+      EcsServiceName: "dotnetfx"
+      TaskContainerName: "sampleapp"
+
