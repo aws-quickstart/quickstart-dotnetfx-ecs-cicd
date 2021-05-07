@@ -1,6 +1,13 @@
+## Ignore ASCII Doctor output file
+taskcat_outputs/
+
+## Ignore ASCII Doctor output file
+docs/index.html
+
 # operating system-related files
 # file properties cache/storage on macOS
 *.DS_Store
+
 # thumbnail cache on Windows
 Thumbs.db
 

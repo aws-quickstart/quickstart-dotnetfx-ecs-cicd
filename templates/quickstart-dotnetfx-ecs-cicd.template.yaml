@@ -8,7 +8,7 @@ Metadata:
       GitHubBranchName:
         default: Branch to Build
       GitHubOwner:
-        default: Project's Owner User ID
+        default: Project Owner's GitHub User ID
       GitHubOAuthToken:
         default: OAuth Token
       EcsClusterName:
@@ -27,10 +27,6 @@ Metadata:
         default: Build Server Volume Type
       CloudWatchLogGroupName:
         default: CloudWatch Log Group Name
-      TagKey:
-        default: Resource Tag Key
-      TagValue:
-        default: Resource Tag Value
     ParameterGroups:
       - Label:
           default: GitHub Configuration
@@ -56,11 +52,6 @@ Metadata:
           default: Logging
         Parameters:
           - CloudWatchLogGroupName
-      - Label:
-          default: Tagging
-        Parameters:
-          - TagKey
-          - TagValue
 Parameters:
   GitHubRepositoryName:
     Type: String
@@ -76,17 +67,17 @@ Parameters:
   GitHubOAuthToken:
     Type: String
     NoEcho: true
-    Description: OAuthToken to use when authenticating with GitHub. Used by CodePipeline to monitor for changes in the repository.
+    Description: OAuth token to use when authenticating with GitHub. Used by CodePipeline to monitor for changes in the repository.
   EcsClusterName:
     Type: String
-    Description: The Amazon ECS cluster to deploy image to.
+    Description: The Amazon ECS cluster where hosting service that is the target of the CI/CD pipeline.
   EcsServiceName:
     Type: String
-    Description: The Amazon ECS service to deploy image to.
+    Description: The Amazon ECS service running the task that will be updated.
     MaxLength: 255
   TaskContainerName:
     Type: String
-    Description: The Amazon ECS cluster to deploy image to.
+    Description: The name of the container in a Task Definition Amazon ECS cluster to deploy image to.
     MaxLength: 255
   BuildServerInstanceType:
     Type: String
@@ -117,26 +108,14 @@ Parameters:
   CloudWatchLogGroupName:
     Type: String
     Description: CloudWatch Log Group Name for build.
-    Default: /aws/quickstarts/dotnetfx-ecs
-  TagKey:
-    Type: String
-    Description: Name that will be used to tag all resources provisioned as part of this Quick Start.
-    Default: aws-quickstart
-  TagValue:
-    Type: String
-    Description: Value for tag applied to resources provisioned as part of this Quick Start.
-    Default: dotnetfx-ecs-cicd
+    Default: /aws/quickstarts/dotnetfx-ecs-cicd
 Resources:
   CodePipelineArtifactStoreBucket:
     Type: 'AWS::S3::Bucket'
-    Properties:
-      Tags:
-        - Key: !Ref TagKey
-          Value: !Ref TagValue
   AppContainerRepo:
     Type: AWS::ECR::Repository
     Properties: 
-      RepositoryName: quickstart/demo-app
+      RepositoryName: !Sub quickstart/demo-app-${AWS::StackName}
       RepositoryPolicyText: 
         Version: "2012-10-17"
         Statement: 
@@ -148,9 +127,6 @@ Resources:
               - "ecr:GetDownloadUrlForLayer"
               - "ecr:BatchGetImage"
               - "ecr:BatchCheckLayerAvailability"
-      Tags:
-        - Key: !Ref TagKey
-          Value: !Ref TagValue
   CodePipelineServiceRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -208,9 +184,6 @@ Resources:
                 Action:
                   - 'ecr:DescribeImages'
                 Resource: '*'
-      Tags:
-        - Key: !Ref TagKey
-          Value: !Ref TagValue
   AppPipeline:
     Type: 'AWS::CodePipeline::Pipeline'
     Properties:
@@ -265,9 +238,6 @@ Resources:
                 ServiceName: !Ref EcsServiceName
               InputArtifacts:
                 - Name: BuildArtifact
-      Tags:
-        - Key: !Ref TagKey
-          Value: !Ref TagValue
   CodeBuildServiceRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -290,14 +260,14 @@ Resources:
                   - 'ec2:RunInstances'
                   Condition: 
                     StringEquals: 
-                      "aws:RequestTag/aws-quickstart": !Ref TagValue
+                      "aws:RequestTag/tag:aws:cloudformation:stack-id": !Ref AWS::StackId
                 - Effect: Allow
                   Resource: !Sub 'arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:instance/*'
                   Action:
                   - 'ec2:TerminateInstances'
                   Condition: 
                     StringEquals: 
-                      "aws:ResourceTag/aws-quickstart": !Ref TagValue
+                      "aws:ResourceTag/tag:aws:cloudformation:stack-id": !Ref AWS::StackId
                 - Effect: Allow
                   Resource: '*'
                   Action:
@@ -312,7 +282,7 @@ Resources:
                   - 'ssm:SendCommand'
                   Condition: 
                     StringEquals: 
-                      "aws:ResourceTag/aws-quickstart": !Ref TagValue
+                      "aws:ResourceTag/tag:aws:cloudformation:stack-id": !Ref AWS::StackId
                 - Effect: Allow
                   Resource: 
                     - !Sub 'arn:${AWS::Partition}:ssm:${AWS::Region}::document/AWS-RunPowerShellScript'
@@ -350,16 +320,13 @@ Resources:
                   - 'logs:CreateLogStream'
                   - 'logs:PutLogEvents'
                 - Effect: Allow
-                  Resource: !Sub arn:${AWS::Partition}:s3:::${AWS::StackName}-codepipelineartifactstore*
+                  Resource: !Sub ${CodePipelineArtifactStoreBucket.Arn}*
                   Action:
                   - 's3:PutObject'
                   - 's3:GetObject'
                   - 's3:GetObjectVersion'
                   - 's3:GetBucketAcl'
                   - 's3:GetBucketLocation'
-      Tags:
-        - Key: !Ref TagKey
-          Value: !Ref TagValue
   CodeBuildProject:
     Type: AWS::CodeBuild::Project
     Properties:
@@ -433,9 +400,6 @@ Resources:
           Status: ENABLED
         S3Logs:
           Status: DISABLED
-      Tags:
-        - Key: !Ref TagKey
-          Value: !Ref TagValue
   ContainerImageBuildServerRole: 
     Type : AWS::IAM::Role
     Properties:
@@ -490,9 +454,6 @@ Resources:
             - "ec2.amazonaws.com"
             - "ssm.amazonaws.com"
           Action: "sts:AssumeRole"
-      Tags:
-        - Key: !Ref TagKey
-          Value: !Ref TagValue
   ContainerImageBuildServerInstanceProfile:
     Type: "AWS::IAM::InstanceProfile"
     Properties:
@@ -501,7 +462,6 @@ Resources:
   BuildDotNetContainerDocument:
     Type: AWS::SSM::Document
     Properties:
-      Name: !Sub BuildDotNetWindowsContainer-${AWS::StackName}
       DocumentType: Automation
       Content:
         schemaVersion: "0.3"
@@ -566,8 +526,10 @@ Resources:
             TagSpecifications:
             - ResourceType: instance
               Tags:
-              - Key: !Ref TagKey
-                Value: !Ref TagValue
+              - Key: tag:aws:cloudformation:stack-id
+                Value: !Ref AWS::StackId
+              - Key: tag:aws:cloudformation:stack-name
+                Value: !Ref AWS::StackName
               - Key: Name
                 Value: dotnetfx-container-build
           nextStep: getInstance
@@ -639,7 +601,7 @@ Resources:
                 $tmpFolder = $(Get-Location).Path
                 $srcFolder = "$tmpFolder\src"
                 $key = "{{SourceArtifactS3Path}}"
-                $srcFileName = "$(Split-Path $key -Leaf).zip"
+                $srcFileName = "$(Split-Path $key -Leaf)"
 
                 Read-S3Object -BucketName "{{PipelineBucketName}}" -Key $key -File $srcFileName
                 Expand-Archive -Path "$tmpFolder\$srcFileName" -DestinationPath "$srcFolder" -Force
@@ -691,7 +653,8 @@ Resources:
               - '{{getInstance.InstanceId}}'
             DesiredState: terminated
           isCritical: 'true'
-          isEnd: 'true'      
-      Tags:
-      - Key: !Ref TagKey
-        Value: !Ref TagValue
+          isEnd: 'true'
+Outputs:
+  CodePipelineName:
+    Description: CodePipeline  Name
+    Value: !Ref AppPipeline

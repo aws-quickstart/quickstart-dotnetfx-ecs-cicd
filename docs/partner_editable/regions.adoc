@@ -1,6 +1,33 @@
 This Quick Start supports the following Regions:
 
-* us-east-1, US East (N. Virginia) (EXAMPLE)
-* us-east-2, US East (Ohio) (EXAMPLE)
+
+|===
+|Code | Name | Opt-in Status
+
+|us-east-1 | US East (N. Virginia) | Not required
+|us-east-2 | US East (Ohio) | Not required
+|us-west-1 | US West (N. California) | Not required
+|us-west-2 | US West (Oregon) | Not required
+|ca-central-1 | Canada (Central) | Not required
+|eu-west-1 | Europe (Ireland) | Not required
+|eu-west-2 | Europe (London) | Not required
+|eu-west-3 | Europe (Paris) | Not required
+|eu-central-1 | Europe (Frankfurt) | Not required
+|ap-south-1 | Asia Pacific (Mumbai) | Not required
+|ap-southeast-1 | Asia Pacific (Singapore) | Not required
+|ap-southeast-2 | Asia Pacific (Sydney) | Not required
+|ap-northeast-1 | Asia Pacific (Tokyo) | Not required
+|ap-northeast-2 | Asia Pacific (Seoul) | Not required
+|===
+
+This list was last updated on May 6, 2021.
+
+The services offered in each region change from time to time. If your preferred region isn't on this list, check the https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/[Regional Product Services] table to see if it already supports EFS.
+
+[WARNING]
+.AWS GovCloud is not for production
+====
+Our Quick Starts are also available on https://aws.amazon.com/govcloud-us/[AWS GovCloud] regions, but only for testing purposes. We do not support any deployments on GovCloud regions resulting from this Quick Start.
+====
 
 //Full list: https://docs.aws.amazon.com/general/latest/gr/rande.html

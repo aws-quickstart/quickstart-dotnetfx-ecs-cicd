@@ -1,7 +1,7 @@
 project:
   name: quickstart-dotnetfx-ecs-cicd
   regions:
-  - us-east-1
+  - us-east-2
   package_lambda: false
 tests:
   default:
@@ -10,4 +10,7 @@ tests:
       EcsClusterName: "quickstart-cluster"
       EcsServiceName: "dotnetfx"
       TaskContainerName: "sampleapp"
-
+      GitHubRepositoryName: "dotnetfx-container"
+      GitHubBranchName: "main"
+      GitHubOwner: "aws-quickstart"
+      GitHubOAuthToken: "xxx"
