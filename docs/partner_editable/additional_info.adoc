@@ -9,4 +9,8 @@
 == Best practices for using {partner-product-short-name} on AWS
 // Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
 
-_Add any best practices for using the software._
+See the following documents for additional information:
+
+* https://docs.aws.amazon.com/codepipeline/latest/userguide/best-practices.html[CodePipeline best practices and use cases]
+* https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/welcome.html?did=wp_card&trk=wp_card[Practicing Continuous Integration and Continuous Delivery on AWS] Whitepaper
+* https://docs.aws.amazon.com/whitepapers/latest/develop-deploy-dotnet-apps-on-aws/develop-deploy-dotnet-apps-on-aws.html[Developing and Deploying .NET Applications on AWS] Whitepaper
