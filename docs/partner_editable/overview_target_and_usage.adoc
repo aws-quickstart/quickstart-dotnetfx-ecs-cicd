@@ -2,6 +2,6 @@
 // Identify your target audience and explain how/why they would use this Quick Start.
 //Avoid borrowing text from third-party websites (copying text from AWS service documentation is fine). Also, avoid marketing-speak, focusing instead on the technical aspect.
 
-This guide provides instructions for deploying the {partner-product-short-name} Quick Start reference architecture on the AWS Cloud.
+This guide provides instructions for deploying a .NET Framework Continuous Integration (CI) and Continuous Deployment (CD) pipeline targeting an Amazon ECS service on the AWS Cloud.
 
-This Quick Start is for users who <target audience and usage scenario>
+The Quick Start is for developers who are looking for a deployment pipeline to implement CI/CD for their .NET Framework workloads hosted on Amazon ECS on AWS. Using this highly scalable solution enables customers to rapidly and reliably deliver features and updates. There are no build servers to manage, and customers only pay for what they use.

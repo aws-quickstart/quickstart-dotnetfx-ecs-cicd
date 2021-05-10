@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+
+<h3>Sample Application</h3>
+
+<p>
+    The sample application is built on the standard MVC 5 template and uses .Net Framework 4.5. You can simply create an exact one from Visual studio by creating a new ASP.NET Web Application and select MVC as the project template.
+
+    <a href="http://www.asp.net/visual-studio/overview/2013/creating-web-projects-in-visual-studio">Read more</a> about creating ASP.NET Web Projects in Visual Studio.
+</p>
+
+<p class="blocktext"><img src="~/Content/newproject.png" /></p>
+
+<h3>RDS Database</h3>
+
+<p>The application uses ASP.NET Identity as the membership system. By default when you create a new project, the web application is configured to use a local SQL Server database. To use an Amazon RDS database instead, change the ApplicationDbContext constructor to accept the RDS connection string. You can retrieve the required values to build the connection string for an RDS database from ConfigurationManager.AppSettings. For a full tutorial on how to deploy this application to Amazon ECS, see <a href="https://aws.amazon.com/blogs/compute/migrating-net-classic-applications-to-amazon-ecs-using-windows-containers/">Migrating .NET Classic Applications to Amazon ECS Using Windows Containers</a>.</p>
+
+<div class="blocktext"><img src="~/Content/connection.png" align="middle" /></div>
