@@ -8,7 +8,7 @@ Ensure that AWS Security Token Service (AWS STS) in the region you deploy the Qu
 
 . Fork the https://github.com/aws-quickstart/quickstart-dotnetfx-ecs-cicd[GitHub repository]
 . The repository consists of:
-* The quickstart-dotnetfx-cicd.template.yml AWS CloudFormation template
+* The AWS CloudFormation templates
 * Application source code
 . Obtain the needed inputs to use later in the installation:
 
@@ -21,7 +21,7 @@ Ensure that AWS Security Token Service (AWS STS) in the region you deploy the Qu
 * Check the repo box.
 * Check the admin:repo_hook box.
 * Select Generate token. Take note of this token as you will need it when deploying the CloudFormation template.
-|Project Owner's GitHub User ID | Your GitHub login user name
+|Project Owner's GitHub User ID | Your GitHub login user name.
 |Repository Name | The name of the forked repository from the first step.
 |Branch to Build | The branch name that you want to use in your fork to trigger the AWS CodePipeline.
 |===

@@ -1,5 +1,6 @@
 // Edit this placeholder text to accurately describe your architecture.
 
-This Quick Start provides one deployment option:
+This Quick Start provides two deployment options:
 
-* *Deploy {partner-product-short-name} into the default VPC*. This option provisions the {partner-product-short-name} resources in your existing AWS infrastructure.
+* *Deploy {partner-product-short-name} with a new ECS cluster*. This option provisions the {partner-product-short-name} with a new ECS cluster as the target.
+* *Deploy {partner-product-short-name} with an existing ECS cluster*. This option provisions the {partner-product-short-name} with an existing ECS cluster as the target.

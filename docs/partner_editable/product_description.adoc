@@ -5,7 +5,7 @@
 This Quick Start provides an end-to-end automated CI/CD environment.
 
 This solution will benefit organizations that want to automate their .NET application release pipelines. It provides fully managed and reliable application updates using AWS CodePipeline, AWS CodeBuild, and AWS CodeDeploy. Whenever code is modified within a
-configured GitHub repository branch, the deployment pipeline automatically launches an Amazon Elastic Compute Cloud (Amazon EC2) instance in the default Amazon Virtual Private Cloud (Amazon VPC) to build a container image, and updates the configured Amazon Elastic Container Service (Amazon ECS) service's task definition, initiating a release.
+specified GitHub repository branch, the deployment pipeline automatically launches an Amazon Elastic Compute Cloud (EC2) instance in the default Amazon Virtual Private Cloud (VPC) to build a container image, and updates the configured Amazon Elastic Container Service (ECS) service's task definition, initiating a release.
 
 After deploying the Quick Start, you can use it to:
 
