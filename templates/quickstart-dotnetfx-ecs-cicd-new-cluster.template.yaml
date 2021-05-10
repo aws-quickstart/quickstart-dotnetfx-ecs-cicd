@@ -1,0 +1,220 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: This Quick Start deploys CodeBuild, CodePipeline and CodeDeploy for .NET to an Elastic Container Service cluster (qs-1rs2qkq5d)
+Metadata:
+  QuickStartDocumentation:
+    EntrypointName: "Parameters for deploying into a new ECS cluster"
+    Order: "1"
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: GitHub Configuration
+        Parameters:
+          - GitHubRepositoryName
+          - GitHubBranchName
+          - GitHubOwner
+          - GitHubOAuthToken
+      - Label:
+          default: ECS Configuration
+        Parameters:
+          - EcsClusterName
+          - EcsServiceName
+          - TaskContainerName
+      - Label:
+          default: Build Server Configuration
+        Parameters:
+          - BuildServerAmiId
+          - BuildServerInstanceType
+          - BuildServerVolumeSize
+          - BuildServerVolumeType
+      - Label:
+          default: Logging
+        Parameters:
+          - CloudWatchLogGroupName
+      - Label:
+          default: AWS Quick Start configuration
+        Parameters:      
+          - QSS3BucketName
+          - QSS3BucketRegion
+          - QSS3KeyPrefix
+    ParameterLabels:
+      BuildServerInstanceType:
+        default: Build Server EC2 Instance Type
+      BuildServerAmiId:
+        default: Build Server AMI ID
+      BuildServerVolumeSize:
+        default: Build Server Volume Size
+      BuildServerVolumeType:
+        default: Build Server Volume Type
+      CloudWatchLogGroupName:
+        default: CloudWatch Log Group Name
+      EcsClusterName:
+        default: ECS Cluster Name
+      EcsServiceName:
+        default: ECS Service Name
+      GitHubRepositoryName:
+        default: Repository Name
+      GitHubBranchName:
+        default: Branch to Build
+      GitHubOwner:
+        default: Project Owner's GitHub User ID
+      GitHubOAuthToken:
+        default: OAuth Token
+      QSS3BucketName:
+        default: Quick Start S3 bucket name
+      QSS3BucketRegion:
+        default: Quick Start S3 bucket Region
+      QSS3KeyPrefix:
+        default: Quick Start S3 key prefix
+      TaskContainerName:
+        default: Task Definition Container Name
+Parameters:
+  BuildServerAmiId:
+    Type: String
+    Description: AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.
+    Default: "{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}"
+  BuildServerInstanceType:
+    Type: String
+    Description: AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.
+    Default: t2.medium
+    AllowedValues: [t2.small, t2.medium, t2.large, 
+                    t3.small, t3.medium, t3.large,
+                    t3a.small, t3a.medium, t3a.large,
+                    c5.large, c5.xlarge,
+                    c5a.large, c5a.xlarge, 
+                    c5ad.large, c5ad.xlarge,
+                    r5.large, r5.xlarge, r5a.large, r5a.xlarge, r5b.large,
+                    i3.large, i3.xlarge,
+                    d3.large, d3.xlarge]
+  BuildServerVolumeSize:
+    Type: Number
+    Description: Volume size for Build server.
+    Default: 100
+  BuildServerVolumeType:
+    Type: String
+    Description: Volume type for Build server.
+    Default: "gp2"
+    AllowedValues: ["gp2", "gp3", "io1", "io2", "sc1", "st1", "standard"]
+  CloudWatchLogGroupName:
+    Type: String
+    Description: CloudWatch Log Group Name for build.
+    Default: /aws/quickstarts/dotnetfx-ecs-cicd
+  EcsClusterName:
+    Type: String
+    Description: The Amazon ECS cluster where hosting service that is the target of the CI/CD pipeline.
+  EcsServiceName:
+    Type: String
+    Description: The Amazon ECS service running the task that will be updated.
+    MaxLength: 255
+  GitHubRepositoryName:
+    Type: String
+    Description: GitHub repository name
+    Default: quickstart-dotnetfx-ecs-cicd
+  GitHubBranchName:
+    Type: String
+    Description: GitHub branch name
+    Default: main
+  GitHubOwner:
+    Type: String
+    Description: UserName of the GitHub repository.
+  GitHubOAuthToken:
+    Type: String
+    NoEcho: true
+    Description: OAuth token to use when authenticating with GitHub. Used by CodePipeline to monitor for changes in the repository.
+  QSS3BucketName:
+    AllowedPattern: '^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$'
+    ConstraintDescription:
+      The Quick Start bucket name can include numbers, lowercase
+      letters, uppercase letters, and hyphens (-). It cannot start or end with a 
+      hyphen (-).
+    Default: aws-quickstart
+    Description:
+      Name of the S3 bucket for your copy of the Quick Start assets. 
+      Keep the default name unless you are customizing the template. 
+      Changing the name updates code references to point to a new Quick 
+      Start location. This name can include numbers, lowercase letters, 
+      uppercase letters, and hyphens, but do not start or end with a hyphen (-). 
+      See https://aws-quickstart.github.io/option1.html.
+    Type: String
+  QSS3BucketRegion:
+    Default: 'us-east-1'
+    Description: 'AWS Region where the Quick Start S3 bucket (QSS3BucketName) is 
+    hosted. Keep the default Region unless you are customizing the template. 
+    Changing this Region updates code references to point to a new Quick Start location. 
+    When using your own bucket, specify the Region. 
+    See https://aws-quickstart.github.io/option1.html.'
+    Type: String
+  QSS3KeyPrefix:
+    AllowedPattern: '^[0-9a-zA-Z-/]*$'
+    ConstraintDescription:
+      The Quick Start S3 key prefix can include numbers, lowercase letters,
+      uppercase letters, hyphens (-), and forward slashes (/). The prefix should
+      end with a forward slash (/).
+    Default: quickstart-dotnetfx-ecs-cicd/
+    Description:
+      S3 key prefix that is used to simulate a directory for your copy of the 
+      Quick Start assets. Keep the default prefix unless you are customizing 
+      the template. Changing this prefix updates code references to point to 
+      a new Quick Start location. This prefix can include numbers, lowercase 
+      letters, uppercase letters, hyphens (-), and forward slashes (/). End with 
+      a forward slash. See https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html 
+      and https://aws-quickstart.github.io/option1.html.
+    Type: String
+  TaskContainerName:
+    Type: String
+    Description: The name of the container in a Task Definition Amazon ECS cluster to deploy image to.
+    MaxLength: 255
+Conditions:
+  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-quickstart']
+Resources:
+  TaskExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+        - {Action: "sts:AssumeRole", Effect: Allow, Principal: {Service: ecs-tasks.amazonaws.com}}
+      Path: "/"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Ref EcsClusterName
+  ECSService: 
+    Type: AWS::ECS::Service
+    Properties: 
+      Cluster: !Ref ECSCluster
+      TaskDefinition: !Ref ECSTaskDefinition
+      SchedulingStrategy: DAEMON
+      ServiceName: !Ref EcsServiceName
+  ECSTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ExecutionRoleArn: !GetAtt TaskExecutionRole.Arn
+      NetworkMode: "none"
+      ContainerDefinitions:
+      - Name: !Ref TaskContainerName
+        Image: hello-world
+        Memory: 4096
+        Cpu: 2
+  CICDStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: ECSCluster
+    Properties:
+      TemplateURL: !Sub
+        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/quickstart-dotnetfx-ecs-cicd.template.yaml
+        - S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref 'QSS3BucketName']
+          S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref 'QSS3BucketRegion']
+      Parameters:
+        BuildServerAmiId: !Ref BuildServerAmiId
+        BuildServerInstanceType: !Ref BuildServerInstanceType
+        BuildServerVolumeSize: !Ref BuildServerVolumeSize
+        BuildServerVolumeType: !Ref BuildServerVolumeType
+        CloudWatchLogGroupName: !Ref CloudWatchLogGroupName
+        EcsClusterName: !Ref EcsClusterName
+        EcsServiceName: !Ref EcsServiceName
+        GitHubRepositoryName: !Ref GitHubRepositoryName
+        GitHubBranchName: !Ref GitHubBranchName
+        GitHubOwner: !Ref GitHubOwner
+        GitHubOAuthToken: !Ref GitHubOAuthToken
+        TaskContainerName: !Ref TaskContainerName
