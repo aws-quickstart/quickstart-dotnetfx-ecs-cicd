@@ -19,6 +19,8 @@ tests:
   default:
     template: ./templates/quickstart-dotnetfx-ecs-cicd-new-cluster.template.yaml
     parameters:
+      EcsClusterName: "taskcat"
+      EcsServiceName: "taskcat-service"
       TaskContainerName: "sampleapp"
       GitHubRepositoryName: "quickstart-dotnetfx-ecs-cicd"
       GitHubBranchName: "develop"
