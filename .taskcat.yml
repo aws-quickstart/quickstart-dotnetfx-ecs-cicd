@@ -26,3 +26,5 @@ tests:
       GitHubBranchName: "develop"
       GitHubOwner: override
       GitHubOAuthToken: override
+      QSS3BucketName: $[taskcat_autobucket]
+      QSS3BucketRegion: $[taskcat_current_region]
