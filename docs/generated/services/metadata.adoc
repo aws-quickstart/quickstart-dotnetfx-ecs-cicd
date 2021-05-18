@@ -1,1 +1,20 @@
-// placeholder
+
+:template_aws_cloudformation_stack:
+:template_aws_codebuild_project:
+:template_aws_codepipeline_pipeline:
+:template_aws_ecr_repository:
+:template_aws_ecs_cluster:
+:template_aws_ecs_service:
+:template_aws_ecs_taskdefinition:
+:template_aws_iam_instanceprofile:
+:template_aws_iam_role:
+:template_aws_s3_bucket:
+:template_aws_ssm_document:
+:template_cloudformation:
+:template_codebuild:
+:template_codepipeline:
+:template_ecr:
+:template_ecs:
+:template_iam:
+:template_s3:
+:template_ssm:
