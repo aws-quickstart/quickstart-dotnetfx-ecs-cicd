@@ -7,20 +7,20 @@ Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
-          default: GitHub Configuration
+          default: GitHub configuration
         Parameters:
           - GitHubRepositoryName
           - GitHubBranchName
           - GitHubOwner
           - GitHubOAuthToken
       - Label:
-          default: ECS Configuration
+          default: Amazon ECS configuration
         Parameters:
           - EcsClusterName
           - EcsServiceName
           - TaskContainerName
       - Label:
-          default: Build Server Configuration
+          default: Build server configuration
         Parameters:
           - BuildServerAmiId
           - BuildServerInstanceType
@@ -32,29 +32,29 @@ Metadata:
           - CloudWatchLogGroupName
     ParameterLabels:
       BuildServerInstanceType:
-        default: Build Server EC2 Instance Type
+        default: Build server EC2 instance type
       BuildServerAmiId:
-        default: Build Server AMI ID
+        default: Build server AMI ID
       BuildServerVolumeSize:
-        default: Build Server Volume Size
+        default: Build server volume size
       BuildServerVolumeType:
-        default: Build Server Volume Type
+        default: Build server volume type
       CloudWatchLogGroupName:
-        default: CloudWatch Log Group Name
+        default: CloudWatch log group name
       EcsClusterName:
-        default: ECS Cluster Name
+        default: Amazon ECS cluster name
       EcsServiceName:
-        default: ECS Service Name
+        default: Amazon ECS service name
       GitHubRepositoryName:
-        default: Repository Name
+        default: Repository name
       GitHubBranchName:
         default: Branch to Build
       GitHubOwner:
-        default: Project Owner's GitHub User ID
+        default: Project owner's GitHub user ID
       GitHubOAuthToken:
-        default: OAuth Token
+        default: OAuth token
       TaskContainerName:
-        default: Task Definition Container Name
+        default: Task definition container name
 Parameters:
   BuildServerAmiId:
     Type: String
