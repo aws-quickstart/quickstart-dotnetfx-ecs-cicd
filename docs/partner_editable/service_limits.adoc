@@ -3,12 +3,12 @@
 |Resource |This deployment uses
 
 // Space needed to maintain table headers
-|Elastic Container Registry Repositories |1
-|CodePipeline Pipelines  |1
+|Amazon ECR repositories |1
+|CodePipeline pipelines  |1
 |CodeBuild Projects  |1
-|Systems Manager Automation Documents  |1
-|Amazon S3 Buckets  |1
+|Systems Manager automation documents  |1
+|S3 buckets  |1
 |Amazon EC2 instances |1
 |AWS Identity and Access Management (IAM) roles |2
-|AWS Identity and Access Management (IAM) Instance Profiles |1
+|IAM instance profiles |1
 |===

@@ -9,9 +9,11 @@ image::../images/architecture_diagram.png[Architecture]
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
 * An AWS CodePipeline with source, build, and deploy stages.
+//TODO mention AWS CodeBuild and AWS CodeDeploy
 * An S3 bucket for holding artifacts.
 * A temporary Amazon EC2 instance within the default VPC.
-* A Systems Manager automation document used to launch the the temporary Amazon EC2 instance and execute the Docker build on the instance.
-* An Amazon Elastic Container Registry (Amazon ECR) to hold the MSBuild container image.
+* An AWS Systems Manager automation document to launch the temporary Amazon EC2 instance and execute the Docker build on the instance.
+* Amazon Elastic Container Registry (Amazon ECR) to hold the MSBuild container image.
+//TODO is "MSBuild container image" = "Docker image with MSBuild 2017 for building .NET Framework"?
 
 //[.small]#* The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.#

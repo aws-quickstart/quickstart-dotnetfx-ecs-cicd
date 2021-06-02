@@ -10,11 +10,18 @@
 . Open the URL for the application. Confirm that your application sample is deployed from GitHub.
 . To test the CI/CD pipeline, modify the sample application code in your forked GitHub repository and check in the changes. CodePipeline should start the CI/CD process and deploy the latest code changes to the ECS service.
 
-== Best practices for using {partner-product-short-name} on AWS
-// Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
+== Additional information
 
-For additional information, see the following:
-
+=== Best practices
 * https://docs.aws.amazon.com/codepipeline/latest/userguide/best-practices.html[CodePipeline best practices and use cases]
 * https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/welcome.html?did=wp_card&trk=wp_card[Practicing Continuous Integration and Continuous Delivery on AWS]
 * https://docs.aws.amazon.com/whitepapers/latest/develop-deploy-dotnet-apps-on-aws/develop-deploy-dotnet-apps-on-aws.html[Developing and Deploying .NET Applications on AWS]
+
+=== AWS services
+* https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html[AWS CodePipeline] 
+* https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html[AWS CodeBuild]
+* https://docs.aws.amazon.com/codedeploy/latest/userguide/welcome.html[AWS CodeDeploy]
+* https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html[AWS Systems Manager]
+* https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html[Amazon ECS]
+* https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html[Amazon ECR]
+* https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html[Amazon S3]

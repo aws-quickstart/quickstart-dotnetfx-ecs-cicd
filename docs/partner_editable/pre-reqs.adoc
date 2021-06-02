@@ -2,15 +2,12 @@
 
 ==== Prepare your AWS account
 
-Ensure that AWS Security Token Service (AWS STS) in the region you deploy the Quick Start to is enabled.
+Ensure that https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html[AWS Security Token Service (AWS STS)] is enabled in the Region you deploy the Quick Start.
 
 ==== Prepare for the deployment
 
-. Fork the https://github.com/aws-quickstart/quickstart-dotnetfx-ecs-cicd[GitHub repository]
-. The repository consists of:
-* The AWS CloudFormation templates
-* Application source code
-. Obtain the needed inputs to use later in the installation:
+. Fork the https://github.com/aws-quickstart/quickstart-dotnetfx-ecs-cicd[GitHub repository]. The repository consists of AWS CloudFormation templates and the application source code.
+. Obtain the items in the following table. They are required during the Quick Start deployment.
 
 [cols="1h,3a"]
 |===
