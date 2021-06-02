@@ -2,15 +2,19 @@
 //Should any sections not be applicable, remove them
 
 == Post-deployment steps
-. When deployment completes, go to the CodePipeline console, choose the pipeline created by the Quick Start, and review the steps.
-. Navigate to the Amazon ECS Task updated by the pipeline, expand the container details and navigate to the URL for the application, and confirm that your application sample is deployed from GitHub.
-. Modify the sample application code of your forked GitHub repository, and check in the changes. You will see that CodePipeline starts the CI/CD process and deploys the latest code changes to the ECS service.
+. After deployment, sign in to the AWS Management Console and open the http://console.aws.amazon.com/codesuite/codepipeline/home[CodePipeline console].
+. Choose the pipeline created by the Quick Start, and review the steps.
+//TODO what steps?
+. Open the https://console.aws.amazon.com/ecs/[Amazon ECS console].
+. Navigate to the Amazon ECS task updated by the pipeline and expand the container details.
+. Open the URL for the application. Confirm that your application sample is deployed from GitHub.
+. To test the CI/CD pipeline, modify the sample application code in your forked GitHub repository and check in the changes. CodePipeline should start the CI/CD process and deploy the latest code changes to the ECS service.
 
 == Best practices for using {partner-product-short-name} on AWS
 // Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
 
-See the following documents for additional information:
+For additional information, see the following:
 
 * https://docs.aws.amazon.com/codepipeline/latest/userguide/best-practices.html[CodePipeline best practices and use cases]
-* https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/welcome.html?did=wp_card&trk=wp_card[Practicing Continuous Integration and Continuous Delivery on AWS] Whitepaper
-* https://docs.aws.amazon.com/whitepapers/latest/develop-deploy-dotnet-apps-on-aws/develop-deploy-dotnet-apps-on-aws.html[Developing and Deploying .NET Applications on AWS] Whitepaper
+* https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/welcome.html?did=wp_card&trk=wp_card[Practicing Continuous Integration and Continuous Delivery on AWS]
+* https://docs.aws.amazon.com/whitepapers/latest/develop-deploy-dotnet-apps-on-aws/develop-deploy-dotnet-apps-on-aws.html[Developing and Deploying .NET Applications on AWS]
