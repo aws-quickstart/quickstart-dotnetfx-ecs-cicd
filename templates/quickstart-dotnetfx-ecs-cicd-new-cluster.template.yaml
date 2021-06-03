@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: This Quick Start deploys CodeBuild, CodePipeline and CodeDeploy for .NET to an Elastic Container Service cluster (qs-1rs2qkq5d)
 Metadata:
   QuickStartDocumentation:
-    EntrypointName: "Parameters for deploying into a new Amazon ECS cluster"
+    EntrypointName: Launch into a new Amazon ECS cluster
     Order: "1"
   AWS::CloudFormation::Interface:
     ParameterGroups:
