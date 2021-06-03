@@ -40,7 +40,7 @@ Metadata:
       BuildServerInstanceType:
         default: Build server EC2 instance type
       BuildServerAmiId:
-        default: Build server Amazon Machine Image (AMI) ID
+        default: Build server AMI ID
       BuildServerVolumeSize:
         default: Build server volume size
       BuildServerVolumeType:
@@ -70,7 +70,7 @@ Metadata:
 Parameters:
   BuildServerAmiId:
     Type: String
-    Description: AMI ID or Amazon Systems Manager Parameter Store (SSM) parameter expression to retrieve the AMI ID of the build server. Must be compatible with the operating system version used by the Amazon ECS cluster.
+    Description: Amazon Machine Image (AMI) ID or Amazon Systems Manager Parameter Store (SSM) parameter expression to retrieve the AMI ID of the build server. Must be compatible with the operating system version used by the Amazon ECS cluster.
     Default: "{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}"
   BuildServerInstanceType:
     Type: String
@@ -100,10 +100,10 @@ Parameters:
     Default: /aws/quickstarts/dotnetfx-ecs-cicd
   EcsClusterName:
     Type: String
-    Description: Name of the Amazon ECS cluster with the hosting service that is the target of the CI/CD pipeline.
+    Description: Name of the Amazon ECS cluster running the service that is the target of the CI/CD pipeline.
   EcsServiceName:
     Type: String
-    Description: Name of the Amazon ECS service running the task that will be updated.
+    Description: Name of the Amazon ECS service running the task to which updated Docker images are deployed.
     MaxLength: 255
   GitHubRepositoryName:
     Type: String
@@ -119,7 +119,7 @@ Parameters:
   GitHubOAuthToken:
     Type: String
     NoEcho: true
-    Description: OAuth token to use when authenticating with GitHub. Used by CodePipeline to monitor for changes in the repository.
+    Description: OAuth token to use when authenticating with GitHub. CodePipeline uses the token to monitor the repository for changes.
   QSS3BucketName:
     AllowedPattern: '^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$'
     ConstraintDescription:
@@ -161,7 +161,7 @@ Parameters:
     Type: String
   TaskContainerName:
     Type: String
-    Description: The name of the container in a Task Definition Amazon ECS cluster to deploy image to.
+    Description: The name of the container in a task definition where updated Docker images are deployed.
     MaxLength: 255
 Conditions:
   UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-quickstart']
@@ -218,3 +218,7 @@ Resources:
         GitHubOwner: !Ref GitHubOwner
         GitHubOAuthToken: !Ref GitHubOAuthToken
         TaskContainerName: !Ref TaskContainerName
+Outputs:
+  Postdeployment:
+    Description: See the deployment guide for post-deployment steps.
+    Value: https://aws.amazon.com/quickstart/?quickstart-all.sort-by=item.additionalFields.sortDate&quickstart-all.sort-order=desc&awsm.page-quickstart-all=5

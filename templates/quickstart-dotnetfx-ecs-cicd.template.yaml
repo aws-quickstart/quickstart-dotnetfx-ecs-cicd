@@ -58,7 +58,7 @@ Metadata:
 Parameters:
   BuildServerAmiId:
     Type: String
-    Description: AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.
+    Description: AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with operating system version used by ECS cluster.
     Default: "{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}"
   BuildServerInstanceType:
     Type: String
@@ -88,10 +88,10 @@ Parameters:
     Default: /aws/quickstarts/dotnetfx-ecs-cicd
   EcsClusterName:
     Type: String
-    Description: The Amazon ECS cluster where hosting service that is the target of the CI/CD pipeline.
+    Description: Name of the Amazon ECS cluster running the service that is the target of the CI/CD pipeline.
   EcsServiceName:
     Type: String
-    Description: The Amazon ECS service running the task that will be updated.
+    Description: Name of the Amazon ECS service running the task to which updated Docker images are deployed.
     MaxLength: 255
   GitHubRepositoryName:
     Type: String
@@ -107,10 +107,10 @@ Parameters:
   GitHubOAuthToken:
     Type: String
     NoEcho: true
-    Description: OAuth token to use when authenticating with GitHub. Used by CodePipeline to monitor for changes in the repository.
+    Description: OAuth token to use when authenticating with GitHub. CodePipeline uses the token to monitor the repository for changes.
   TaskContainerName:
     Type: String
-    Description: The name of the container in a Task Definition Amazon ECS cluster to deploy image to.
+    Description: The name of the container in a task definition where updated Docker images are deployed.
     MaxLength: 255
 Resources:
   CodePipelineArtifactStoreBucket:
@@ -661,3 +661,6 @@ Outputs:
   CodePipelineName:
     Description: CodePipeline  Name
     Value: !Ref AppPipeline
+  Postdeployment:
+    Description: See the deployment guide for post-deployment steps.
+    Value: https://aws.amazon.com/quickstart/?quickstart-all.sort-by=item.additionalFields.sortDate&quickstart-all.sort-order=desc&awsm.page-quickstart-all=5
