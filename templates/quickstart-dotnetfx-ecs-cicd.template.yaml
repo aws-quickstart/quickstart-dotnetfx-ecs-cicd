@@ -62,7 +62,7 @@ Parameters:
     Default: "{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}"
   BuildServerInstanceType:
     Type: String
-    Description: AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.
+    Description: Type of the EC2 instance on the build server. For more information, see https://aws.amazon.com/ec2/instance-types/[Amazon EC2 Instance Types^].
     Default: t2.medium
     AllowedValues: [t2.small, t2.medium, t2.large, 
                     t3.small, t3.medium, t3.large,
@@ -75,16 +75,16 @@ Parameters:
                     d3.large, d3.xlarge]
   BuildServerVolumeSize:
     Type: Number
-    Description: Volume size for Build server.
+    Description: Size of EBS volume attached to the EC2 instance on the build server.
     Default: 100
   BuildServerVolumeType:
     Type: String
-    Description: Volume type for Build server.
+    Description: Type of EBS volume attached to the EC2 instance on the build server. For more information, see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html[Amazon EBS volume types^].
     Default: "gp2"
     AllowedValues: ["gp2", "gp3", "io1", "io2", "sc1", "st1", "standard"]
   CloudWatchLogGroupName:
     Type: String
-    Description: CloudWatch Log Group Name for build.
+    Description: Name of CloudWatch log group that receives logs from the EC2 instance on the build server.
     Default: /aws/quickstarts/dotnetfx-ecs-cicd
   EcsClusterName:
     Type: String
@@ -103,7 +103,7 @@ Parameters:
     Default: main
   GitHubOwner:
     Type: String
-    Description: UserName of the GitHub repository.
+    Description: GitHub user name of the GitHub repository owner.
   GitHubOAuthToken:
     Type: String
     NoEcho: true

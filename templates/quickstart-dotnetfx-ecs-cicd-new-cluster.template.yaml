@@ -70,11 +70,11 @@ Metadata:
 Parameters:
   BuildServerAmiId:
     Type: String
-    Description: AMI ID or Amazon Systems Manager Parameter Store (SSM) parameter expression to retrieve the AMI ID for the build server. Must be compatible with the OS version used by the Amazon ECS cluster.
+    Description: AMI ID or Amazon Systems Manager Parameter Store (SSM) parameter expression to retrieve the AMI ID of the build server. Must be compatible with the operating system version used by the Amazon ECS cluster.
     Default: "{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}"
   BuildServerInstanceType:
     Type: String
-    Description: EC2 instance type of the build server. For more information, see https://aws.amazon.com/ec2/instance-types/[Amazon EC2 Instance Types^].
+    Description: Type of the EC2 instance on the build server. For more information, see https://aws.amazon.com/ec2/instance-types/[Amazon EC2 Instance Types^].
     Default: t2.medium
     AllowedValues: [t2.small, t2.medium, t2.large, 
                     t3.small, t3.medium, t3.large,
@@ -87,23 +87,23 @@ Parameters:
                     d3.large, d3.xlarge]
   BuildServerVolumeSize:
     Type: Number
-    Description: Volume size for the build server.
+    Description: Size of EBS volume attached to the EC2 instance on the build server.
     Default: 100
   BuildServerVolumeType:
     Type: String
-    Description: Volume type for the build server. For more information, see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html[Amazon EBS volume types^].
+    Description: Type of EBS volume attached to the EC2 instance on the build server. For more information, see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html[Amazon EBS volume types^].
     Default: "gp2"
     AllowedValues: ["gp2", "gp3", "io1", "io2", "sc1", "st1", "standard"]
   CloudWatchLogGroupName:
     Type: String
-    Description: CloudWatch Log Group Name for build.
+    Description: Name of CloudWatch log group that receives logs from the EC2 instance on the build server.
     Default: /aws/quickstarts/dotnetfx-ecs-cicd
   EcsClusterName:
     Type: String
-    Description: The Amazon ECS cluster where hosting service that is the target of the CI/CD pipeline.
+    Description: Name of the Amazon ECS cluster with the hosting service that is the target of the CI/CD pipeline.
   EcsServiceName:
     Type: String
-    Description: The Amazon ECS service running the task that will be updated.
+    Description: Name of the Amazon ECS service running the task that will be updated.
     MaxLength: 255
   GitHubRepositoryName:
     Type: String
@@ -115,7 +115,7 @@ Parameters:
     Default: main
   GitHubOwner:
     Type: String
-    Description: UserName of the GitHub repository.
+    Description: GitHub user name of the GitHub repository owner.
   GitHubOAuthToken:
     Type: String
     NoEcho: true
