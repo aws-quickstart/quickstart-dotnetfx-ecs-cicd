@@ -2,10 +2,10 @@
 //Should any sections not be applicable, remove them
 
 == Post-deployment steps
-. After deployment, sign in to the AWS Management Console and open the http://console.aws.amazon.com/codesuite/codepipeline/home[CodePipeline console].
+. After deployment, sign in to the AWS Management Console and open the http://console.aws.amazon.com/codesuite/codepipeline/home[CodePipeline console^].
 . Choose the pipeline created by the Quick Start, and review the steps.
 //TODO what steps?
-. Open the https://console.aws.amazon.com/ecs/[Amazon ECS console].
+. Open the https://console.aws.amazon.com/ecs/[Amazon ECS console^].
 . Navigate to the Amazon ECS task updated by the pipeline and expand the container details.
 . Open the URL for the application. Confirm that your application sample is deployed from GitHub.
 . To test the CI/CD pipeline, modify the sample application code in your forked GitHub repository and check in the changes. CodePipeline should start the CI/CD process and deploy the latest code changes to the ECS service.
@@ -13,15 +13,15 @@
 == Additional information
 
 === Best practices
-* https://docs.aws.amazon.com/codepipeline/latest/userguide/best-practices.html[CodePipeline best practices and use cases]
-* https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/welcome.html?did=wp_card&trk=wp_card[Practicing Continuous Integration and Continuous Delivery on AWS]
-* https://docs.aws.amazon.com/whitepapers/latest/develop-deploy-dotnet-apps-on-aws/develop-deploy-dotnet-apps-on-aws.html[Developing and Deploying .NET Applications on AWS]
+* https://docs.aws.amazon.com/codepipeline/latest/userguide/best-practices.html[CodePipeline best practices and use cases^]
+* https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/welcome.html?did=wp_card&trk=wp_card[Practicing Continuous Integration and Continuous Delivery on AWS^]
+* https://docs.aws.amazon.com/whitepapers/latest/develop-deploy-dotnet-apps-on-aws/develop-deploy-dotnet-apps-on-aws.html[Developing and Deploying .NET Applications on AWS^]
 
 === AWS services
-* https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html[AWS CodePipeline] 
-* https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html[AWS CodeBuild]
-* https://docs.aws.amazon.com/codedeploy/latest/userguide/welcome.html[AWS CodeDeploy]
-* https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html[AWS Systems Manager]
-* https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html[Amazon ECS]
-* https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html[Amazon ECR]
-* https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html[Amazon S3]
+* https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html[AWS CodePipeline^] 
+* https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html[AWS CodeBuild^]
+* https://docs.aws.amazon.com/codedeploy/latest/userguide/welcome.html[AWS CodeDeploy^]
+* https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html[AWS Systems Manager^]
+* https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html[Amazon ECS^]
+* https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html[Amazon ECR^]
+* https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html[Amazon S3^]
