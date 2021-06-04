@@ -8,13 +8,13 @@ image::../images/architecture_diagram.png[Architecture]
 
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
-* CodePipeline to create an automated release pipeline with source, build, and deploy stages. CodePipeline is invoked each time a developer pushes a code change to the configured GitHub repository branch.
+* CodePipeline creates an automated release pipeline with source, build, and deploy stages. CodePipeline is invoked each time a developer pushes a code change to the configured GitHub repository branch.
 //TODO mention AWS CodeBuild and AWS CodeDeploy
-** In the source stage, an Amazon S3 bucket to store pipeline artifacts. 
-** In the build stage, AWS CodeBuild to launch a build environment consisting of a temporary EC2 instance in the default virtual private cloud (VPC). AWS Systems Manager runs on the EC2 instance, downloads CodePipeline artifacts from the Amazon S3 bucket, unzips them, runs the build script, and pushes a new Docker container image to an Amazon ECR repository.
-** In the deploy stage, CodeDeploy to deploy the updated version of the Amazon ECS application.
-* Amazon ECR to host and distribute Docker container images and .
-* Amazon ECS to run the Docker image created by the code change.
+** In the source stage, an Amazon S3 bucket stores pipeline artifacts. 
+** In the build stage, AWS CodeBuild launches a temporary EC2 instance in the default virtual private cloud (VPC). AWS Systems Manager runs on the EC2 instance, downloads CodePipeline artifacts from the Amazon S3 bucket, unzips them, runs the build script, and pushes a new Docker container image to an Amazon ECR repository.
+** In the deploy stage, CodeDeploy deploys the updated version of the Amazon ECS application. ???
+* Amazon ECR hosts and distributes Docker container images to Amazon ECS.
+* Amazon ECS runs the Docker image created by the code change.
 //TODO is "MSBuild container image" = "Docker image with MSBuild 2017 for building .NET Framework"?
 
 //[.small]#* The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.#
