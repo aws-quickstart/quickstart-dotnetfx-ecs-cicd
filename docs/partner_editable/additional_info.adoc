@@ -2,13 +2,15 @@
 //Should any sections not be applicable, remove them
 
 == Post-deployment steps
-. After deployment, sign in to the AWS Management Console and open the http://console.aws.amazon.com/codesuite/codepipeline/home[CodePipeline console^].
-. Choose the pipeline created by the Quick Start, and review the steps.
-//TODO what steps?
+To test your pipeline, do the following:
+
+. Make a code change to your configured source repository, commit, and push the change.
+. Open the CodePipeline console at https://console.aws.amazon.com/codepipeline/.
+. Choose your pipeline from the list.
+. Watch the pipeline progress through its stages. Your pipeline should complete and your Amazon ECS service runs the Docker image that was created from your code change.
 . Open the https://console.aws.amazon.com/ecs/[Amazon ECS console^].
 . Navigate to the Amazon ECS task updated by the pipeline and expand the container details.
-. Open the URL for the application. Confirm that your application sample is deployed from GitHub.
-. To test the CI/CD pipeline, modify the sample application code in your forked GitHub repository and check in the changes. CodePipeline should start the CI/CD process and deploy the latest code changes to the ECS service.
+. Open the URL for the application. Confirm that your application sample is deployed.
 
 == Additional information
 
