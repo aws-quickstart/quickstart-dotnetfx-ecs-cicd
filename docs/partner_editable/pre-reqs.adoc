@@ -12,15 +12,15 @@ Ensure that AWS Security Token Service (AWS STS) is enabled in the Region you de
 [cols="1h,3a"]
 |===
 
-|GitHub OAuth Token | A personal access token created in GitHub.
+|GitHub OAuth token | A personal access token created in GitHub.
 
 . Go to https://github.com/settings/tokens/new.
 . In the *Note* field, enter `.NET CI/CD`.
 . Select the *repo* checkbox.
 . Select the *admin:repo_hook* checkbox.
 . Choose *Generate token*. Copy the token that is generated. It is required when deploying the Quick Start CloudFormation template.
-|Project Owner's GitHub User ID | Your GitHub login user name.
-|Repository Name | The name of the forked repository from the first step.
-|Branch to Build | The branch name that you want to use in your fork to trigger the AWS CodePipeline.
+|Project owner's GitHub user ID | Your GitHub login user name.
+|Repository name | The name of the forked repository from the first step.
+|Branch to build | The branch name that you want to use in your fork to initiate the CI/CD pipeline.
 
 |===

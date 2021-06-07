@@ -5,8 +5,8 @@
 // Space needed to maintain table headers
 |Amazon ECR repositories |1
 |CodePipeline pipelines  |1
-|CodeBuild Projects  |1
-|Systems Manager automation documents  |1
+|CodeBuild projects  |1
+|Systems Manager runbooks  |1
 |S3 buckets  |1
 |Amazon EC2 instances |1
 |AWS Identity and Access Management (IAM) roles |2
