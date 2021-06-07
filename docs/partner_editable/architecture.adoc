@@ -4,17 +4,19 @@ Deploying this Quick Start builds the following {partner-product-short-name} env
 
 [#architecture1]
 .Quick Start architecture for {partner-product-short-name} on AWS
-image::../images/architecture_diagram.png[Architecture]
+image::../images/dotnetfx-ecs-cicd-architecture-diagram.png[Architecture]
 
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
-* CodePipeline creates an automated release pipeline with source, build, and deploy stages. CodePipeline is invoked each time a developer pushes a code change to the configured GitHub repository branch.
-//TODO mention AWS CodeBuild and AWS CodeDeploy
-** In the source stage, an Amazon S3 bucket stores pipeline artifacts. 
-** In the build stage, AWS CodeBuild launches a temporary EC2 instance in the default virtual private cloud (VPC). AWS Systems Manager runs on the EC2 instance, downloads CodePipeline artifacts from the Amazon S3 bucket, unzips them, runs the build script, and pushes a new Docker container image to an Amazon ECR repository.
-** In the deploy stage, CodeDeploy deploys the updated version of the Amazon ECS application. ???
-* Amazon ECR hosts and distributes Docker container images to Amazon ECS.
-* Amazon ECS runs the Docker image created by the code change.
-//TODO is "MSBuild container image" = "Docker image with MSBuild 2017 for building .NET Framework"?
+* AWS CodePipeline to create a pipeline with source, build, and deploy stages. CodePipeline polls the configured GitHub repository and initiates a new pipeline run for each new commit. Each new build is retrieved from the source code repository, packaged as a zip file, stored on Amazon Simple Storage Service (Amazon S3), and sent to the next stage of the pipeline.
+* Amazon S3 to store the pipeline artifact. This is the template that defines the deployment environment used by the deployment stage after a successful build of the application.
+* AWS CodeBuild to manage the building of an updated Docker image of the application on a container. CodeBuild connects to AWS Systems Manager, which automates the following build functions:
+** Provision of a temporary Amazon EC2 instance in the default virtural private cloud (VPC).
+** Retrieval of artifacts from Amazon S3.
+** Building of a new Docker container image from the source code. 
+** Publication of the new container image to Amazon Elastic Container Registry (Amazon ECR).
+* Amazon ECR to host Docker container images.
+* AWS CodeDeploy to create a new task definition that points to the newly-built Docker container image and updates the Amazon ECS service to use the new task definition.
+Amazon ECS to initiate a deployment by fetching the new Docker container from Amazon ECR and restarting the service.
 
 //[.small]#* The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.#
