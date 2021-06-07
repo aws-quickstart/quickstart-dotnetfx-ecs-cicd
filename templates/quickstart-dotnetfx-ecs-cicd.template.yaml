@@ -2,25 +2,25 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: This Quick Start deploys CodeBuild, CodePipeline and CodeDeploy for .NET to an Elastic Container Service cluster (qs-1rs2qkq5d)
 Metadata:
   QuickStartDocumentation:
-    EntrypointName: "Parameters for deploying into an existing ECS cluster"
+    EntrypointName: Launch into an existing ECS cluster
     Order: "2"
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
-          default: GitHub Configuration
+          default: GitHub configuration
         Parameters:
           - GitHubRepositoryName
           - GitHubBranchName
           - GitHubOwner
           - GitHubOAuthToken
       - Label:
-          default: ECS Configuration
+          default: Amazon ECS configuration
         Parameters:
           - EcsClusterName
           - EcsServiceName
           - TaskContainerName
       - Label:
-          default: Build Server Configuration
+          default: Build server configuration
         Parameters:
           - BuildServerAmiId
           - BuildServerInstanceType
@@ -32,37 +32,37 @@ Metadata:
           - CloudWatchLogGroupName
     ParameterLabels:
       BuildServerInstanceType:
-        default: Build Server EC2 Instance Type
+        default: Build server EC2 instance type
       BuildServerAmiId:
-        default: Build Server AMI ID
+        default: Build server AMI ID
       BuildServerVolumeSize:
-        default: Build Server Volume Size
+        default: Build server volume size
       BuildServerVolumeType:
-        default: Build Server Volume Type
+        default: Build server volume type
       CloudWatchLogGroupName:
-        default: CloudWatch Log Group Name
+        default: CloudWatch log group name
       EcsClusterName:
-        default: ECS Cluster Name
+        default: Amazon ECS cluster name
       EcsServiceName:
-        default: ECS Service Name
+        default: Amazon ECS service name
       GitHubRepositoryName:
-        default: Repository Name
+        default: Repository name
       GitHubBranchName:
         default: Branch to Build
       GitHubOwner:
-        default: Project Owner's GitHub User ID
+        default: Project owner's GitHub user ID
       GitHubOAuthToken:
-        default: OAuth Token
+        default: OAuth token
       TaskContainerName:
-        default: Task Definition Container Name
+        default: Task definition container name
 Parameters:
   BuildServerAmiId:
     Type: String
-    Description: AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.
+    Description: AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with operating system version used by ECS cluster.
     Default: "{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}"
   BuildServerInstanceType:
     Type: String
-    Description: AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.
+    Description: Type of the EC2 instance on the build server. For more information, see https://aws.amazon.com/ec2/instance-types/[Amazon EC2 Instance Types^].
     Default: t2.medium
     AllowedValues: [t2.small, t2.medium, t2.large, 
                     t3.small, t3.medium, t3.large,
@@ -75,23 +75,23 @@ Parameters:
                     d3.large, d3.xlarge]
   BuildServerVolumeSize:
     Type: Number
-    Description: Volume size for Build server.
+    Description: Size of EBS volume attached to the EC2 instance on the build server.
     Default: 100
   BuildServerVolumeType:
     Type: String
-    Description: Volume type for Build server.
+    Description: Type of EBS volume attached to the EC2 instance on the build server. For more information, see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html[Amazon EBS volume types^].
     Default: "gp2"
     AllowedValues: ["gp2", "gp3", "io1", "io2", "sc1", "st1", "standard"]
   CloudWatchLogGroupName:
     Type: String
-    Description: CloudWatch Log Group Name for build.
+    Description: Name of CloudWatch log group that receives logs from the EC2 instance on the build server.
     Default: /aws/quickstarts/dotnetfx-ecs-cicd
   EcsClusterName:
     Type: String
-    Description: The Amazon ECS cluster where hosting service that is the target of the CI/CD pipeline.
+    Description: Name of the Amazon ECS cluster running the service that is the target of the CI/CD pipeline.
   EcsServiceName:
     Type: String
-    Description: The Amazon ECS service running the task that will be updated.
+    Description: Name of the Amazon ECS service running the task to which updated Docker images are deployed.
     MaxLength: 255
   GitHubRepositoryName:
     Type: String
@@ -103,14 +103,14 @@ Parameters:
     Default: main
   GitHubOwner:
     Type: String
-    Description: UserName of the GitHub repository.
+    Description: GitHub user name of the GitHub repository owner.
   GitHubOAuthToken:
     Type: String
     NoEcho: true
-    Description: OAuth token to use when authenticating with GitHub. Used by CodePipeline to monitor for changes in the repository.
+    Description: OAuth token to use when authenticating with GitHub. CodePipeline uses the token to monitor the repository for changes.
   TaskContainerName:
     Type: String
-    Description: The name of the container in a Task Definition Amazon ECS cluster to deploy image to.
+    Description: The name of the container in a task definition where updated Docker images are deployed.
     MaxLength: 255
 Resources:
   CodePipelineArtifactStoreBucket:
@@ -661,3 +661,6 @@ Outputs:
   CodePipelineName:
     Description: CodePipeline  Name
     Value: !Ref AppPipeline
+  Postdeployment:
+    Description: See the deployment guide for post-deployment steps.
+    Value: https://aws.amazon.com/quickstart/?quickstart-all.sort-by=item.additionalFields.sortDate&quickstart-all.sort-order=desc&awsm.page-quickstart-all=5

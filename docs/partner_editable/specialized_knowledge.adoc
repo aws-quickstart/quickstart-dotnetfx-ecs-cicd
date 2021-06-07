@@ -3,4 +3,4 @@
 // Include links if helpful. 
 // You don't need to list AWS services or point to general info about AWS; the boilerplate already covers this.
 
-This Quick Start also assumes familiarity with Microsoft technologies, specifically .NET. Additional knowledge of Docker, and the services used as part of this Quick Start (i.e. AWS CodeBuild, AWS CodePipeline, AWS CodeDeploy, AWS Systems Manager, and Amazon ECR), will help you tailor the solution for your use case.
+This Quick Start assumes familiarity with Microsoft technologies, specifically .NET. Additional knowledge of Docker, and the link:#aws_services[services] used as part of this Quick Start will help you tailor the deployment for your use case.

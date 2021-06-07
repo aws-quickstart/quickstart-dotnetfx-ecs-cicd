@@ -1,0 +1,33 @@
+
+.GitHub Configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Repository Name
+(`GitHubRepositoryName`)|`quickstart-dotnetfx-ecs-cicd`|GitHub repository name|Branch to Build
+(`GitHubBranchName`)|`main`|GitHub branch name|Project Owner's GitHub User ID
+(`GitHubOwner`)|`**__Requires input__**`|UserName of the GitHub repository.|OAuth Token
+(`GitHubOAuthToken`)|`**__Requires input__**`|OAuth token to use when authenticating with GitHub. Used by CodePipeline to monitor for changes in the repository.
+|===
+.ECS Configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|ECS Cluster Name
+(`EcsClusterName`)|`**__Requires input__**`|The Amazon ECS cluster where hosting service that is the target of the CI/CD pipeline.|ECS Service Name
+(`EcsServiceName`)|`**__Requires input__**`|The Amazon ECS service running the task that will be updated.|Task Definition Container Name
+(`TaskContainerName`)|`**__Requires input__**`|The name of the container in a Task Definition Amazon ECS cluster to deploy image to.
+|===
+.Build Server Configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Build Server AMI ID
+(`BuildServerAmiId`)|`{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}`|AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.|Build Server EC2 Instance Type
+(`BuildServerInstanceType`)|`t2.medium`|AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.|Build Server Volume Size
+(`BuildServerVolumeSize`)|`100`|Volume size for Build server.|Build Server Volume Type
+(`BuildServerVolumeType`)|`gp2`|Volume type for Build server.
+|===
+.Logging
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|CloudWatch Log Group Name
+(`CloudWatchLogGroupName`)|`/aws/quickstarts/dotnetfx-ecs-cicd`|CloudWatch Log Group Name for build.
+|===

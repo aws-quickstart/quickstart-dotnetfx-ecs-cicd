@@ -1,7 +1,7 @@
 :quickstart-project-name: quickstart-dotnetfx-ecs-cicd
 :partner-product-name: .NET Framework CI/CD for Amazon ECS
-:partner-product-short-name: .NET Framework CI/CD for ECS
-:doc-month: May
+:partner-product-short-name: .NET Framework CI/CD for Amazon ECS
+:doc-month: June
 :doc-year: 2021
 :aws-contributors: Carlos Santos, Sr. AWS Solutions Architect, Microsoft Technologies
 :quickstart-contributors: Dave May, AWS Solutions Architect, Partner Infrastructure Automation
