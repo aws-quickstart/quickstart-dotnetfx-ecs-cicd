@@ -4,7 +4,7 @@
 
 This Quick Start deploys a continuous integration and continuous delivery (CI/CD) pipeline on the Amazon Web Services (AWS) Cloud for containerized .NET applications on Amazon Elastic Container Service (Amazon ECS).
 
-A code change to the configured GitHub repository branch initiates a build of a new Docker container image on a temporary Amazon Elastic Compute Cloud (Amazon EC2) instance. The pipeline then updates the configured Amazon ECS task definition, initiating the release of your updated application. This approach to continuous deployment is entirely serverless and uses managed services for the orchestration, build, and deployment of your software.
+A code change to the configured GitHub repository branch initiates a build of a new Docker container image on a temporary Amazon Elastic Compute Cloud (Amazon EC2) instance. The pipeline updates the configured Amazon ECS task definition, initiating the release of your updated application. This approach to continuous deployment is entirely serverless and uses managed services for the orchestration, build, and deployment of your software.
 
 After deploying the Quick Start, you can use it to:
 
