@@ -8,15 +8,14 @@ image::../images/dotnetfx-ecs-cicd-architecture-diagram.png[Architecture]
 
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
-* AWS CodePipeline to create a pipeline with source, build, and deploy stages. CodePipeline polls the configured GitHub repository and initiates a new pipeline run for each new commit. Each new build is retrieved from the source code repository, packaged as a zip file, stored on Amazon Simple Storage Service (Amazon S3), and sent to the next stage of the pipeline.
-* Amazon S3 to store the pipeline artifact. This is the template that defines the deployment environment used by the deployment stage after a successful build of the application.
+* AWS CodePipeline to create a pipeline with source, build, and deploy stages. CodePipeline polls the configured GitHub repository branch and starts the pipeline in response to a commit. CodePipeline retrieves the code from GitHub and stores it on Amazon Simple Storage Service (Amazon S3).
 * AWS CodeBuild to manage the building of an updated Docker image of the application on a container. CodeBuild connects to AWS Systems Manager, which automates the following build functions:
-** Provision of a temporary Amazon EC2 instance in the default virtural private cloud (VPC).
-** Retrieval of artifacts from Amazon S3.
-** Building of a new Docker container image from the source code. 
+** Provision of a temporary Amazon EC2 instance in the default virtual private cloud (VPC).
+** Retrieval of code from Amazon S3.
+** Building of a new Docker container image. 
 ** Publication of the new container image to Amazon Elastic Container Registry (Amazon ECR).
 * Amazon ECR to host Docker container images.
-* AWS CodeDeploy to create a new task definition that points to the newly-built Docker container image and updates the Amazon ECS service to use the new task definition.
-Amazon ECS to initiate a deployment by fetching the new Docker container from Amazon ECR and restarting the service.
+* AWS CodeDeploy to create a new task definition that points to the newly-built Docker container image and updates Amazon Elastic Container Service (Amazon ECS) to use the new task definition.
+* Amazon ECS to initiate a deployment by fetching the new Docker container from Amazon ECR and restarting the service.
 
 //[.small]#* The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.#
