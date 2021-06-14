@@ -16,6 +16,6 @@ As shown in <<architecture1>>, the Quick Start sets up the following:
 ** Publication of the new container image to Amazon Elastic Container Registry (Amazon ECR).
 * Amazon ECR to host Docker container images.
 * AWS CodeDeploy to create a new task definition that points to the newly-built Docker container image and updates Amazon Elastic Container Service (Amazon ECS) to use the new task definition.
-* Amazon ECS to initiate a deployment by fetching the new Docker container from Amazon ECR and restarting the service.
+* Amazon ECS to fetch the new Docker container from Amazon ECR and restart the service to deploy the application.
 
 //[.small]#* The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.#
