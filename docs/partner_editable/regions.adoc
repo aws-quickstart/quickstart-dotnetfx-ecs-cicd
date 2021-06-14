@@ -26,9 +26,7 @@ The services offered in each Region change from time to time. If your preferred 
 
 [WARNING]
 ====
-*AWS GovCloud is not for production*
-
-Our Quick Starts are also available on https://aws.amazon.com/govcloud-us/[AWS GovCloud] Regions, but only for testing purposes. We do not support any deployments on GovCloud Regions resulting from this Quick Start.
+This Quick Start is not supported in AWS GovCloud for production.
 ====
 
 //Full list: https://docs.aws.amazon.com/general/latest/gr/rande.html
