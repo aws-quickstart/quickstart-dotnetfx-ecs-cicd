@@ -91,7 +91,7 @@ Parameters:
     Description: Name of the Amazon ECS cluster running the service that is the target of the CI/CD pipeline.
   EcsServiceName:
     Type: String
-    Description: Name of the Amazon ECS service running the task to which updated Docker images are deployed.
+    Description: Name of the Amazon ECS service to which the Docker container image is deployed.
     MaxLength: 255
   GitHubRepositoryName:
     Type: String
@@ -110,7 +110,7 @@ Parameters:
     Description: OAuth token to use when authenticating with GitHub. CodePipeline uses the token to monitor the repository for changes.
   TaskContainerName:
     Type: String
-    Description: The name of the container in a task definition where updated Docker images are deployed.
+    Description: The name of the container in a task definition where the Docker container image is deployed.
     MaxLength: 255
 Resources:
   CodePipelineArtifactStoreBucket:
