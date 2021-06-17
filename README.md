@@ -3,7 +3,7 @@
 
 .NET Framework is a managed execution environment for applications that provides memory management, class libraries, versioning, and other software development tools.
 
-![Quick Start Architecture](./docs/images/architecture_diagram.png)
+![Quick Start Architecture](./docs/images/architecture-diagram.png)
 
 This Quick Start builds a .NET Framework CI/CD (continuous integration and continuous deployment) environment on the Amazon Web Services (AWS) Cloud to provide a pipeline for .NET Framework workloads. It can perform the following functions:
 
