@@ -4,7 +4,7 @@
 :doc-month: June
 :doc-year: 2021
 :aws-contributors: Carlos Santos, Sr. AWS Solutions Architect, Microsoft Technologies
-:quickstart-contributors: Dave May, AWS Solutions Architect, AWS Integration and Automation
+:quickstart-contributors: Dave May, AWS Quick Start team
 :deployment_time: 5 minutes
 :default_deployment_region: us-east-1
 :parameters_as_appendix:
