@@ -4,14 +4,17 @@ Deploying this Quick Start builds the following {partner-product-short-name} env
 
 [#architecture1]
 .Quick Start architecture for {partner-product-short-name} on AWS
-image::../images/architecture_diagram.png[Architecture]
+image::../images/dotnetfx-ecs-cicd-architecture-diagram.png[Architecture]
 
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
-* An AWS CodePipeline with source, build, and deploy stages.
-* An S3 bucket for holding artifacts.
-* A temporary Amazon EC2 instance within the default VPC.
-* A Systems Manager automation document used to launch the the temporary Amazon EC2 instance and execute the Docker build on the instance.
-* An Amazon Elastic Container Registry (Amazon ECR) to hold the MSBuild container image.
+* AWS CodePipeline to create a pipeline with source, build, and deploy stages. The pipeline is invoked when a developer commits a code change to the configured GitHub repository branch. 
+* An Amazon S3 bucket to store pipeline artifacts.
+* AWS CodeBuild to build the source code into a new Docker container image. AWS CodeBuild connects to AWS Systems Manager, which automates the following build tasks:
+** Retrieves code from Amazon S3.
+** Provisions a temporary Amazon EC2 instance in the default virtual private cloud (VPC).
+** Builds a new Docker container image from the source code. 
+** Publishes the new Docker container image to Amazon Elastic Container Registry (Amazon ECR).
+* AWS CodeDeploy to deploy the new Docker container image to Amazon ECS.
 
 //[.small]#* The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.#

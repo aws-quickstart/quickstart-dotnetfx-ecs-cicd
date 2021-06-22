@@ -2,6 +2,4 @@
 // Identify your target audience and explain how/why they would use this Quick Start.
 //Avoid borrowing text from third-party websites (copying text from AWS service documentation is fine). Also, avoid marketing-speak, focusing instead on the technical aspect.
 
-This guide provides instructions for deploying a .NET Framework Continuous Integration (CI) and Continuous Deployment (CD) pipeline targeting an Amazon ECS service on the AWS Cloud.
-
-The Quick Start is for developers who are looking for a deployment pipeline to implement CI/CD for their .NET Framework workloads hosted on Amazon ECS. Using this highly scalable solution enables customers to rapidly and reliably deliver features and updates. There are no build servers to manage, and customers only pay for what they use.
+This guide provides instructions for developers to deploy a continuous integration and continuous delivery (CI/CD) pipeline on the AWS Cloud to update .NET applications on Amazon Elastic Container Service (Amazon ECS).
