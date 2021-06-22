@@ -843,18 +843,23 @@ p.footer-text a{color:#d7d8d8}
 </ul>
 </li>
 <li><a href="#_post_deployment_steps">Post-deployment steps</a></li>
-<li><a href="#_best_practices_for_using_net_framework_cicd_for_ecs_on_aws">Best practices for using .NET Framework CI/CD for ECS on AWS</a></li>
+<li><a href="#_additional_information">Additional information</a>
+<ul class="sectlevel2">
+<li><a href="#_best_practices">Best practices</a></li>
+<li><a href="#_aws_services">AWS services</a></li>
+</ul>
+</li>
 <li><a href="#_faq">FAQ</a></li>
 <li><a href="#_troubleshooting">Troubleshooting</a>
 <ul class="sectlevel2">
-<li><a href="#_cicd_pipeline_fails_in_build_stage">CI/CD Pipeline Fails in Build Stage</a></li>
-<li><a href="#_cicd_pipeline_fails_in_deploy_stage">CI/CD Pipeline Fails in Deploy Stage</a></li>
+<li><a href="#_cicd_pipeline_fails_in_build_stage">CI/CD pipeline fails in build stage</a></li>
+<li><a href="#_cicd_pipeline_fails_in_deploy_stage">CI/CD pipeline fails in deploy stage</a></li>
 </ul>
 </li>
 <li><a href="#_parameter_reference">Parameter reference</a>
 <ul class="sectlevel2">
-<li><a href="#_parameters_for_deploying_into_a_new_ecs_cluster">Parameters for deploying into a new ECS cluster</a></li>
-<li><a href="#_parameters_for_deploying_into_an_existing_ecs_cluster">Parameters for deploying into an existing ECS cluster</a></li>
+<li><a href="#_launch_into_a_new_amazon_ecs_cluster">Launch into a new Amazon ECS cluster</a></li>
+<li><a href="#_launch_into_an_existing_ecs_cluster">Launch into an existing ECS cluster</a></li>
 </ul>
 </li>
 <li><a href="#_send_us_feedback">Send us feedback</a></li>
@@ -875,9 +880,9 @@ p.footer-text a{color:#d7d8d8}
 </div>
 </div>
 <div class="paragraph text-center">
-<p><strong>May 2021</strong><br>
+<p><strong>June 2021</strong><br>
 <em>Carlos Santos, Sr. AWS Solutions Architect, Microsoft Technologies</em><br>
-<em>Dave May, AWS Solutions Architect, Partner Infrastructure Automation</em></p>
+<em>Dave May, AWS Solutions Architect, AWS Integration and Automation</em></p>
 </div>
 <div class="admonitionblock tip text-left">
 <table>
@@ -901,10 +906,7 @@ report bugs, or submit feature ideas for this Quick Start.
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide provides instructions for deploying a .NET Framework Continuous Integration (CI) and Continuous Deployment (CD) pipeline targeting an Amazon ECS service on the AWS Cloud.</p>
-</div>
-<div class="paragraph">
-<p>The Quick Start is for developers who are looking for a deployment pipeline to implement CI/CD for their .NET Framework workloads hosted on Amazon ECS. Using this highly scalable solution enables customers to rapidly and reliably deliver features and updates. There are no build servers to manage, and customers only pay for what they use.</p>
+<p>This guide provides instructions for developers to deploy a continuous integration and continuous delivery (CI/CD) pipeline on the AWS Cloud to update .NET applications on Amazon Elastic Container Service (Amazon ECS).</p>
 </div>
 </div>
 </div>
@@ -912,27 +914,10 @@ report bugs, or submit feature ideas for this Quick Start.
 <h2 id="_net_framework_cicd_for_amazon_ecs_on_aws">.NET Framework CI/CD for Amazon ECS on AWS</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This Quick Start provides an end-to-end automated CI/CD environment.</p>
+<p>This Quick Start deploys a continuous integration and continuous delivery (CI/CD) pipeline on the Amazon Web Services (AWS) Cloud for .NET applications on Amazon Elastic Container Service (Amazon ECS). Your application is updated each time code is changed on your configured GitHub repository branch without interrupting the Amazon ECS service.</p>
 </div>
 <div class="paragraph">
-<p>This solution will benefit organizations that want to automate their .NET application release pipelines. It provides fully managed and reliable application updates using AWS CodePipeline, AWS CodeBuild, and AWS CodeDeploy. Whenever code is modified within a
-specified GitHub repository branch, the deployment pipeline automatically launches an Amazon Elastic Compute Cloud (EC2) instance in the default Amazon Virtual Private Cloud (VPC) to build a container image, and updates the configured Amazon Elastic Container Service (ECS) service&#8217;s task definition, initiating a release.</p>
-</div>
-<div class="paragraph">
-<p>After deploying the Quick Start, you can use it to:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Fetch the latest source code from GitHub and save it to a source artifact store.</p>
-</li>
-<li>
-<p>Automatically build the application.</p>
-</li>
-<li>
-<p>Deploy the application to the target environment.</p>
-</li>
-</ul>
+<p>AWS CodePipeline creates a pipeline with source, build, and deploy stages. During the source stage, code is retrieved from GitHub and stored on Amazon Simple Storage Service (Amazon S3). In the build stage, AWS CodeBuild and AWS Systems Manager build a new Docker container image of your code on a temporary Amazon Elastic Compute Cloud (Amazon EC2) instance. In the deploy stage, AWS CodeDeploy deploys the updated image to Amazon ECS.</p>
 </div>
 </div>
 </div>
@@ -967,7 +952,7 @@ After you deploy the Quick Start, create <a href="https://docs.aws.amazon.com/aw
 <h2 id="_software_licenses">Software licenses</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>No licenses are required to deploy this Quick Start. All AWS service resources consumed during the launch of the Quick Start incur AWS service usage costs.</em></p>
+<p>No licenses are required to deploy this Quick Start. All AWS service resources consumed during the launch of the Quick Start incur AWS service usage costs.</p>
 </div>
 </div>
 </div>
@@ -975,13 +960,13 @@ After you deploy the Quick Start, create <a href="https://docs.aws.amazon.com/aw
 <h2 id="_architecture">Architecture</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Deploying this Quick Start builds the following .NET Framework CI/CD for ECS environment in the AWS Cloud.</p>
+<p>Deploying this Quick Start builds the following .NET Framework CI/CD for Amazon ECS environment in the AWS Cloud.</p>
 </div>
 <div id="architecture1" class="imageblock">
 <div class="content">
-<img src="images/architecture_diagram.png" alt="Architecture">
+<img src="images/dotnetfx-ecs-cicd-architecture-diagram.png" alt="Architecture">
 </div>
-<div class="title">Figure 1. Quick Start architecture for .NET Framework CI/CD for ECS on AWS</div>
+<div class="title">Figure 1. Quick Start architecture for .NET Framework CI/CD for Amazon ECS on AWS</div>
 </div>
 <div class="paragraph">
 <p>As shown in <a href="#architecture1">Figure 1</a>, the Quick Start sets up the following:</p>
@@ -989,19 +974,32 @@ After you deploy the Quick Start, create <a href="https://docs.aws.amazon.com/aw
 <div class="ulist">
 <ul>
 <li>
-<p>An AWS CodePipeline with source, build, and deploy stages.</p>
+<p>AWS CodePipeline to create a pipeline with source, build, and deploy stages. The pipeline is invoked when a developer commits a code change to the configured GitHub repository branch.</p>
 </li>
 <li>
-<p>An S3 bucket for holding artifacts.</p>
+<p>An Amazon S3 bucket to store pipeline artifacts.</p>
 </li>
 <li>
-<p>A temporary Amazon EC2 instance within the default VPC.</p>
+<p>AWS CodeBuild to build the source code into a new Docker container image. AWS CodeBuild connects to AWS Systems Manager, which automates the following build tasks:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Retrieves code from Amazon S3.</p>
 </li>
 <li>
-<p>A Systems Manager automation document used to launch the the temporary Amazon EC2 instance and execute the Docker build on the instance.</p>
+<p>Provisions a temporary Amazon EC2 instance in the default virtual private cloud (VPC).</p>
 </li>
 <li>
-<p>An Amazon Elastic Container Registry (Amazon ECR) to hold the MSBuild container image.</p>
+<p>Builds a new Docker container image from the source code.</p>
+</li>
+<li>
+<p>Publishes the new Docker container image to Amazon Elastic Container Registry (Amazon ECR).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>AWS CodeDeploy to deploy the new Docker container image to Amazon ECS.</p>
 </li>
 </ul>
 </div>
@@ -1019,7 +1017,7 @@ and <a href="https://aws.amazon.com/training/" target="_blank" rel="noopener">AW
 deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 </div>
 <div class="paragraph">
-<p>This Quick Start also assumes familiarity with Microsoft technologies, specifically .NET. Additional knowledge of Docker, and the services used as part of this Quick Start (i.e. AWS CodeBuild, AWS CodePipeline, AWS CodeDeploy, AWS Systems Manager, and Amazon ECR), will help you tailor the solution for your use case.</p>
+<p>This Quick Start assumes familiarity with Microsoft technologies, specifically .NET. Additional knowledge of Docker, and the <a href="#aws_services">services</a> used as part of this Quick Start will help you tailor the deployment for your use case.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1054,23 +1052,23 @@ deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Elastic Container Registry Repositories</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon ECR repositories</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CodePipeline Pipelines</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CodePipeline pipelines</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CodeBuild Projects</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CodeBuild projects</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Systems Manager Automation Documents</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Systems Manager runbooks</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon S3 Buckets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 buckets</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
@@ -1082,7 +1080,7 @@ deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Identity and Access Management (IAM) Instance Profiles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IAM instance profiles</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 </tbody>
@@ -1180,10 +1178,7 @@ deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>This list was last updated on May 6, 2021.</p>
-</div>
-<div class="paragraph">
-<p>The services offered in each region change from time to time. If your preferred region isn&#8217;t on this list, check the <a href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/">Regional Product Services</a> table to see if it already supports EFS.</p>
+<p>The list of Regions that support <a href="https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">Amazon Elastic File System (Amazon EFS)</a> is updated periodically. To check if your preferred Region has been added, see <a href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/">Regional Product Services</a>.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -1192,9 +1187,8 @@ deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-<div class="title">AWS GovCloud is not for production</div>
 <div class="paragraph">
-<p>Our Quick Starts are also available on <a href="https://aws.amazon.com/govcloud-us/">AWS GovCloud</a> regions, but only for testing purposes. We do not support any deployments on GovCloud regions resulting from this Quick Start.</p>
+<p>This Quick Start is not supported in AWS GovCloud for production.</p>
 </div>
 </td>
 </tr>
@@ -1222,7 +1216,7 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <div class="sect3">
 <h4 id="_prepare_your_aws_account">Prepare your AWS account</h4>
 <div class="paragraph">
-<p>Ensure that AWS Security Token Service (AWS STS) in the region you deploy the Quick Start to is enabled.</p>
+<p>Ensure that AWS Security Token Service (AWS STS) is enabled in the Region you deploy the Quick Start. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Managing AWS STS in an AWS Region</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1230,23 +1224,10 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Fork the <a href="https://github.com/aws-quickstart/quickstart-dotnetfx-ecs-cicd">GitHub repository</a></p>
+<p>Fork the <a href="https://github.com/aws-quickstart/quickstart-dotnetfx-ecs-cicd">GitHub repository</a>. The repository consists of AWS CloudFormation templates and the application source code.</p>
 </li>
 <li>
-<p>The repository consists of:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>The AWS CloudFormation templates</p>
-</li>
-<li>
-<p>Application source code</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Obtain the needed inputs to use later in the installation:</p>
+<p>Obtain the items in the following table. They are required during the Quick Start deployment.</p>
 </li>
 </ol>
 </div>
@@ -1257,43 +1238,46 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">GitHub OAuth Token</p></th>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
-<ul>
+<th class="tableblock halign-left valign-top"><p class="tableblock">GitHub OAuth token</p></th>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A personal access token created in GitHub.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Go to <a href="https://github.com/settings/tokens/new" class="bare">https://github.com/settings/tokens/new</a>.</p>
 </li>
 <li>
-<p>Type “.NET CI/CD” in the Note field.</p>
+<p>In the <strong>Note</strong> field, enter <code>.NET CI/CD</code>.</p>
 </li>
 <li>
-<p>Check the repo box.</p>
+<p>Select the <strong>repo</strong> checkbox.</p>
 </li>
 <li>
-<p>Check the admin:repo_hook box.</p>
+<p>Select the <strong>admin:repo_hook</strong> checkbox.</p>
 </li>
 <li>
-<p>Select Generate token. Take note of this token as you will need it when deploying the CloudFormation template.</p>
+<p>Choose <strong>Generate token</strong>. Copy the token that is generated. It is required when deploying the Quick Start CloudFormation template.</p>
 </li>
-</ul>
+</ol>
 </div></div></td>
 </tr>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Project Owner&#8217;s GitHub User ID</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Project owner&#8217;s GitHub user ID</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Your GitHub login user name.</p>
 </div></div></td>
 </tr>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Repository Name</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Repository name</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>The name of the forked repository from the first step.</p>
 </div></div></td>
 </tr>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Branch to Build</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Branch to build</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The branch name that you want to use in your fork to trigger the AWS CodePipeline.</p>
+<p>The branch name that you want to use in your fork to initiate the CI/CD pipeline.</p>
 </div></div></td>
 </tr>
 </tbody>
@@ -1307,10 +1291,10 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Deploy .NET Framework CI/CD for ECS with a new ECS cluster</strong>. This option provisions the .NET Framework CI/CD for ECS with a new ECS cluster as the target.</p>
+<p><strong>Deploy .NET Framework CI/CD for Amazon ECS with a new ECS cluster</strong>. This option provisions the .NET Framework CI/CD for Amazon ECS with a new ECS cluster as the target.</p>
 </li>
 <li>
-<p><strong>Deploy .NET Framework CI/CD for ECS with an existing ECS cluster</strong>. This option provisions the .NET Framework CI/CD for ECS with an existing ECS cluster as the target.</p>
+<p><strong>Deploy .NET Framework CI/CD for Amazon ECS with an existing ECS cluster</strong>. This option provisions the .NET Framework CI/CD for Amazon ECS with an existing ECS cluster as the target.</p>
 </li>
 </ul>
 </div>
@@ -1336,20 +1320,8 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 </div>
 <div class="sect2">
 <h3 id="_launch_the_quick_start">Launch the Quick Start</h3>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-If you’re deploying .NET Framework CI/CD for ECS into an existing VPC, make sure that your VPC has two private subnets in different Availability Zones for the workload instances and that the subnets aren’t shared. This Quick Start doesn’t support <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html" target="_blank" rel="noopener">shared subnets</a>. These subnets require <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html" target="_blank" rel="noopener">NAT gateways</a> in their route tables to allow the instances to download packages and software without exposing them to the internet. Also make sure that the domain name option in the DHCP options is configured as explained in <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html" target="_blank" rel="noopener">DHCP options sets</a>. You provide your VPC settings when you launch the Quick Start.
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
-<p>Creation of the CloudFormation Stack takes about 5 minutes to complete. The CI/CD pipeline execution completes in 20 minutes.</p>
+<p>Creation of the CloudFormation stack takes about 5 minutes to complete. The CI/CD pipeline deployment completes in 20 minutes.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1362,18 +1334,18 @@ If you’re deploying .NET Framework CI/CD for ECS into an existing VPC, make su
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/XXXXX?">Deploy with a new ECS cluster</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/XXXXX?" target="_blank" rel="noopener">View template</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/njpgg?">Deploy with a new ECS cluster</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/633xW?" target="_blank" rel="noopener">View template</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/XXXXX?" target="_blank" rel="noopener">Deploy with an existing ECS cluster</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/XXXXX?" target="_blank" rel="noopener">View template</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/a7wDn?" target="_blank" rel="noopener">Deploy with an existing ECS cluster</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/BwzG6?" target="_blank" rel="noopener">View template</a></p></td>
 </tr>
 </tbody>
 </table>
 </li>
 <li>
-<p>Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary. This Region is where the network infrastructure for .NET Framework CI/CD for ECS is built. The template is launched in the us-east-1 Region by default. For other choices, see <a href="#_supported_regions">Supported Regions</a> earlier in this guide.</p>
+<p>Check the AWS Region displayed in the upper-right corner of the navigation bar, and change it if necessary. This Region is where .NET Framework CI/CD for Amazon ECS deploys. The template is launched in the us-east-1 Region by default. For other Regions, see <a href="#_supported_regions">Supported Regions</a> earlier in this guide. Choose <strong>Next</strong>.</p>
 </li>
 <li>
 <p>On the <strong>Create stack</strong> page, keep the default setting for the template URL, and then choose <strong>Next</strong>.</p>
@@ -1391,7 +1363,7 @@ If you’re deploying .NET Framework CI/CD for ECS into an existing VPC, make su
 <p>Choose <strong>Create stack</strong> to deploy the stack.</p>
 </li>
 <li>
-<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the .NET Framework CI/CD for ECS deployment is ready.</p>
+<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the .NET Framework CI/CD for Amazon ECS deployment is ready.</p>
 </li>
 <li>
 <p>To view the created resources, see the values displayed in the <strong>Outputs</strong> tab for the stack.</p>
@@ -1404,39 +1376,82 @@ If you’re deploying .NET Framework CI/CD for ECS into an existing VPC, make su
 <div class="sect1">
 <h2 id="_post_deployment_steps">Post-deployment steps</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>To test your pipeline, do the following:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>When deployment completes, go to the CodePipeline console, choose the pipeline created by the Quick Start, and review the steps.</p>
+<p>Make a code change to your configured source repository, commit, and push the change.</p>
 </li>
 <li>
-<p>Navigate to the Amazon ECS Task updated by the pipeline, expand the container details and navigate to the URL for the application, and confirm that your application sample is deployed from GitHub.</p>
+<p>Open the CodePipeline console at <a href="https://console.aws.amazon.com/codepipeline/" class="bare">https://console.aws.amazon.com/codepipeline/</a>.</p>
 </li>
 <li>
-<p>Modify the sample application code of your forked GitHub repository, and check in the changes. You will see that CodePipeline starts the CI/CD process and deploys the latest code changes to the ECS service.</p>
+<p>Choose your pipeline from the list.</p>
+</li>
+<li>
+<p>Watch the pipeline progress through its stages. Your pipeline should complete and your Amazon ECS service runs the Docker image that was created from your code change.</p>
+</li>
+<li>
+<p>Open the <a href="https://console.aws.amazon.com/ecs/" target="_blank" rel="noopener">Amazon ECS console</a>.</p>
+</li>
+<li>
+<p>Navigate to the Amazon ECS task updated by the pipeline and expand the container details.</p>
+</li>
+<li>
+<p>Open the URL for the application. Confirm that your application sample is deployed.</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_best_practices_for_using_net_framework_cicd_for_ecs_on_aws">Best practices for using .NET Framework CI/CD for ECS on AWS</h2>
+<h2 id="_additional_information">Additional information</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>See the following documents for additional information:</p>
-</div>
+<div class="sect2">
+<h3 id="_best_practices">Best practices</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/best-practices.html">CodePipeline best practices and use cases</a></p>
+<p><a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/best-practices.html" target="_blank" rel="noopener">CodePipeline best practices and use cases</a></p>
 </li>
 <li>
-<p><a href="https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/welcome.html?did=wp_card&amp;trk=wp_card">Practicing Continuous Integration and Continuous Delivery on AWS</a> Whitepaper</p>
+<p><a href="https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/welcome.html?did=wp_card&amp;trk=wp_card" target="_blank" rel="noopener">Practicing Continuous Integration and Continuous Delivery on AWS</a></p>
 </li>
 <li>
-<p><a href="https://docs.aws.amazon.com/whitepapers/latest/develop-deploy-dotnet-apps-on-aws/develop-deploy-dotnet-apps-on-aws.html">Developing and Deploying .NET Applications on AWS</a> Whitepaper</p>
+<p><a href="https://docs.aws.amazon.com/whitepapers/latest/develop-deploy-dotnet-apps-on-aws/develop-deploy-dotnet-apps-on-aws.html" target="_blank" rel="noopener">Developing and Deploying .NET Applications on AWS</a></p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aws_services">AWS services</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html" target="_blank" rel="noopener">AWS CodePipeline</a></p>
+</li>
+<li>
+<p><a href="https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html" target="_blank" rel="noopener">AWS CodeBuild</a></p>
+</li>
+<li>
+<p><a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/welcome.html" target="_blank" rel="noopener">AWS CodeDeploy</a></p>
+</li>
+<li>
+<p><a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html" target="_blank" rel="noopener">AWS Systems Manager</a></p>
+</li>
+<li>
+<p><a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html" target="_blank" rel="noopener">Amazon ECS</a></p>
+</li>
+<li>
+<p><a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html" target="_blank" rel="noopener">Amazon ECR</a></p>
+</li>
+<li>
+<p><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html" target="_blank" rel="noopener">Amazon S3</a></p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -1476,9 +1491,9 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 <h2 id="_troubleshooting">Troubleshooting</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_cicd_pipeline_fails_in_build_stage">CI/CD Pipeline Fails in Build Stage</h3>
+<h3 id="_cicd_pipeline_fails_in_build_stage">CI/CD pipeline fails in build stage</h3>
 <div class="paragraph">
-<p>Select the details link in the Build stage. Use the Build Logs tab to view the log output from the stage.</p>
+<p>Select the details link in the build stage. Use the Build logs tab to view the log output from the stage.</p>
 </div>
 <div class="paragraph">
 <p>While the error message returned from the SSM document execution is logged, this may not provide enough information to diagnose the problem. If this is the case, to view the SSM output for each step, follow these steps:</p>
@@ -1486,48 +1501,50 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 <div class="ulist">
 <ul>
 <li>
-<p>Look for the log entry that begins with "Running execution". The log entry will look similar to the following.</p>
+<p>Look for the log entry that begins with "Running execution". The log entry will look similar to <a href="#logentry">Figure 2</a>.</p>
 </li>
 </ul>
 </div>
-<div class="imageblock">
+<div id="logentry" class="imageblock">
 <div class="content">
 <img src="images/ssm-execution-id.png" alt="SSM Execution ID">
 </div>
+<div class="title">Figure 2. Running execution log entry</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Navigate to the AWS Systems Manager Automation console and select the automation execution matching the ID logged.</p>
+<p>Navigate to the <a href="https://console.aws.amazon.com/systems-manager/automation?region=us-east-1">AWS Systems Manager Automation console</a> and select the automation execution matching the ID in the log entry.</p>
 </li>
 <li>
-<p>Select the step that failed in the Executed Steps section.</p>
+<p>In the <strong>Executed Steps</strong> section, select the step that failed.</p>
 </li>
 <li>
-<p>Use the Failure Details section to see the exception message.</p>
+<p>In the <strong>Failure Details</strong> section, find the exception message.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cicd_pipeline_fails_in_deploy_stage">CI/CD Pipeline Fails in Deploy Stage</h3>
+<h3 id="_cicd_pipeline_fails_in_deploy_stage">CI/CD pipeline fails in deploy stage</h3>
 <div class="paragraph">
-<p>Typically this is due to a container instance not meeting all of the task definition&#8217;s requirements. To view the details as to why the Task could not be updated follow these steps:</p>
+<p>Typically a pipeline failure in the deploy stage is due to a container instance not meeting all of the task definition&#8217;s requirements. To view the details as to why the task could not be updated, follow these steps.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Select the details link in the Deploy stage. This will navigate you to the ECS Service&#8217;s Deployments tab.</p>
+<p>Select the details link in the deploy stage. This will navigate you to the Amazon ECS Service <strong>Deployments</strong> tab.</p>
 </li>
 <li>
-<p>Select the Events tab of the ECS Service, to view the log and use the Message column to diagnose the problem. For example:</p>
+<p>Select the <strong>Events</strong> tab of the ECS Service to view the log. Use the information in the <strong>Message</strong> column to diagnose the problem, as shown in <a href="#taskfailure">Figure 3</a>.</p>
 </li>
 </ul>
 </div>
-<div class="imageblock">
+<div id="taskfailure" class="imageblock">
 <div class="content">
 <img src="images/task-update-failure.png" alt="Task Update Failure">
 </div>
+<div class="title">Figure 3. Diagnosing a task failure</div>
 </div>
 </div>
 </div>
@@ -1548,9 +1565,9 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </table>
 </div>
 <div class="sect2">
-<h3 id="_parameters_for_deploying_into_a_new_ecs_cluster">Parameters for deploying into a new ECS cluster</h3>
+<h3 id="_launch_into_a_new_amazon_ecs_cluster">Launch into a new Amazon ECS cluster</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. GitHub Configuration</caption>
+<caption class="title">Table 1. GitHub configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1565,33 +1582,33 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Repository Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository name
 (<code>GitHubRepositoryName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-dotnetfx-ecs-cicd</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GitHub repository name</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Branch to Build
+<td class="tableblock halign-left valign-top"><p class="tableblock">Branch to build
 (<code>GitHubBranchName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>main</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GitHub branch name</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Project Owner&#8217;s GitHub User ID
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project owner&#8217;s GitHub user ID
 (<code>GitHubOwner</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">UserName of the GitHub repository.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GitHub user name of the GitHub repository owner.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth Token
+<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth token
 (<code>GitHubOAuthToken</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth token to use when authenticating with GitHub. Used by CodePipeline to monitor for changes in the repository.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth token to use when authenticating with GitHub. CodePipeline uses the token to monitor the repository for changes.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. ECS Configuration</caption>
+<caption class="title">Table 2. Amazon ECS configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1606,27 +1623,27 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ECS Cluster Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon ECS cluster name
 (<code>EcsClusterName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Amazon ECS cluster where hosting service that is the target of the CI/CD pipeline.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the Amazon ECS cluster running the service that is the target of the CI/CD pipeline.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ECS Service Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon ECS service name
 (<code>EcsServiceName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Amazon ECS service running the task that will be updated.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the Amazon ECS service to which the Docker container image is deployed.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Task Definition Container Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Task definition container name
 (<code>TaskContainerName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the container in a Task Definition Amazon ECS cluster to deploy image to.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the container in a task definition where the Docker container image is deployed.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Build Server Configuration</caption>
+<caption class="title">Table 3. Build server configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1641,28 +1658,28 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Build Server AMI ID
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build server AMI ID
 (<code>BuildServerAmiId</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon Machine Image (AMI) ID or Amazon Systems Manager Parameter Store (SSM) parameter expression to retrieve the AMI ID of the build server. Must be compatible with the operating system version used by the Amazon ECS cluster.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Build Server EC2 Instance Type
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build server EC2 instance type
 (<code>BuildServerInstanceType</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>t2.medium</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of the EC2 instance on the build server. For more information, see <a href="https://aws.amazon.com/ec2/instance-types/" target="_blank" rel="noopener">Amazon EC2 Instance Types</a>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Build Server Volume Size
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build server volume size
 (<code>BuildServerVolumeSize</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>100</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Volume size for Build server.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Size of EBS volume attached to the EC2 instance on the build server.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Build Server Volume Type
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build server volume type
 (<code>BuildServerVolumeType</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>gp2</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Volume type for Build server.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of EBS volume attached to the EC2 instance on the build server. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html" target="_blank" rel="noopener">Amazon EBS volume types</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1682,10 +1699,10 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CloudWatch Log Group Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon CloudWatch log group name
 (<code>CloudWatchLogGroupName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>/aws/quickstarts/dotnetfx-ecs-cicd</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CloudWatch Log Group Name for build.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of CloudWatch log group that receives logs from the EC2 instance on the build server.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1726,9 +1743,9 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </table>
 </div>
 <div class="sect2">
-<h3 id="_parameters_for_deploying_into_an_existing_ecs_cluster">Parameters for deploying into an existing ECS cluster</h3>
+<h3 id="_launch_into_an_existing_ecs_cluster">Launch into an existing ECS cluster</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. GitHub Configuration</caption>
+<caption class="title">Table 6. GitHub configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1743,7 +1760,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Repository Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository name
 (<code>GitHubRepositoryName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-dotnetfx-ecs-cicd</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GitHub repository name</p></td>
@@ -1755,21 +1772,21 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 <td class="tableblock halign-left valign-top"><p class="tableblock">GitHub branch name</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Project Owner&#8217;s GitHub User ID
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project owner&#8217;s GitHub user ID
 (<code>GitHubOwner</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">UserName of the GitHub repository.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GitHub user name of the GitHub repository owner.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth Token
+<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth token
 (<code>GitHubOAuthToken</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth token to use when authenticating with GitHub. Used by CodePipeline to monitor for changes in the repository.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth token to use when authenticating with GitHub. CodePipeline uses the token to monitor the repository for changes.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. ECS Configuration</caption>
+<caption class="title">Table 7. Amazon ECS configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1784,27 +1801,27 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ECS Cluster Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon ECS cluster name
 (<code>EcsClusterName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Amazon ECS cluster where hosting service that is the target of the CI/CD pipeline.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the Amazon ECS cluster running the service that is the target of the CI/CD pipeline.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ECS Service Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon ECS service name
 (<code>EcsServiceName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Amazon ECS service running the task that will be updated.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the Amazon ECS service to which the Docker container image is deployed.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Task Definition Container Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Task definition container name
 (<code>TaskContainerName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the container in a Task Definition Amazon ECS cluster to deploy image to.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the container in a task definition where the Docker container image is deployed.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. Build Server Configuration</caption>
+<caption class="title">Table 8. Build server configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1819,28 +1836,28 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Build Server AMI ID
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build server AMI ID
 (<code>BuildServerAmiId</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with operating system version used by ECS cluster.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Build Server EC2 Instance Type
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build server EC2 instance type
 (<code>BuildServerInstanceType</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>t2.medium</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of the EC2 instance on the build server. For more information, see <a href="https://aws.amazon.com/ec2/instance-types/" target="_blank" rel="noopener">Amazon EC2 Instance Types</a>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Build Server Volume Size
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build server volume size
 (<code>BuildServerVolumeSize</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>100</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Volume size for Build server.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Size of EBS volume attached to the EC2 instance on the build server.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Build Server Volume Type
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build server volume type
 (<code>BuildServerVolumeType</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>gp2</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Volume type for Build server.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of EBS volume attached to the EC2 instance on the build server. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html" target="_blank" rel="noopener">Amazon EBS volume types</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1860,10 +1877,10 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CloudWatch Log Group Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">CloudWatch log group name
 (<code>CloudWatchLogGroupName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>/aws/quickstarts/dotnetfx-ecs-cicd</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CloudWatch Log Group Name for build.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of CloudWatch log group that receives logs from the EC2 instance on the build server.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1918,8 +1935,8 @@ and to share your customizations with others.</p>
 </html>
 <!--
 repo commit:
-0a0efeac959e820c46762e2e5003d82094b3e568
+3809db9ea05bfb11499d416bec8874189f27c315
 
 submodule config:
-+a9d6c5903745c1091793d3cd1f960948919c2c9f docs/boilerplate (heads/main)
++41862fa5fb846466fba46a36faf67e2a77c2bfc5 docs/boilerplate (heads/main)
 -->

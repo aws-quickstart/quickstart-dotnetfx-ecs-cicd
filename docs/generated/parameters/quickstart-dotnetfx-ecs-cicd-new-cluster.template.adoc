@@ -1,35 +1,35 @@
 
-.GitHub Configuration
+.GitHub configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|Repository Name
-(`GitHubRepositoryName`)|`quickstart-dotnetfx-ecs-cicd`|GitHub repository name|Branch to Build
-(`GitHubBranchName`)|`main`|GitHub branch name|Project Owner's GitHub User ID
-(`GitHubOwner`)|`**__Requires input__**`|UserName of the GitHub repository.|OAuth Token
-(`GitHubOAuthToken`)|`**__Requires input__**`|OAuth token to use when authenticating with GitHub. Used by CodePipeline to monitor for changes in the repository.
+|Parameter label (name) |Default value|Description|Repository name
+(`GitHubRepositoryName`)|`quickstart-dotnetfx-ecs-cicd`|GitHub repository name|Branch to build
+(`GitHubBranchName`)|`main`|GitHub branch name|Project owner's GitHub user ID
+(`GitHubOwner`)|`**__Requires input__**`|GitHub user name of the GitHub repository owner.|OAuth token
+(`GitHubOAuthToken`)|`**__Requires input__**`|OAuth token to use when authenticating with GitHub. CodePipeline uses the token to monitor the repository for changes.
 |===
-.ECS Configuration
+.Amazon ECS configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|ECS Cluster Name
-(`EcsClusterName`)|`**__Requires input__**`|The Amazon ECS cluster where hosting service that is the target of the CI/CD pipeline.|ECS Service Name
-(`EcsServiceName`)|`**__Requires input__**`|The Amazon ECS service running the task that will be updated.|Task Definition Container Name
-(`TaskContainerName`)|`**__Requires input__**`|The name of the container in a Task Definition Amazon ECS cluster to deploy image to.
+|Parameter label (name) |Default value|Description|Amazon ECS cluster name
+(`EcsClusterName`)|`**__Requires input__**`|Name of the Amazon ECS cluster running the service that is the target of the CI/CD pipeline.|Amazon ECS service name
+(`EcsServiceName`)|`**__Requires input__**`|Name of the Amazon ECS service to which the Docker container image is deployed.|Task definition container name
+(`TaskContainerName`)|`**__Requires input__**`|The name of the container in a task definition where the Docker container image is deployed.
 |===
-.Build Server Configuration
+.Build server configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|Build Server AMI ID
-(`BuildServerAmiId`)|`{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}`|AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.|Build Server EC2 Instance Type
-(`BuildServerInstanceType`)|`t2.medium`|AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with OS version used by ECS cluster.|Build Server Volume Size
-(`BuildServerVolumeSize`)|`100`|Volume size for Build server.|Build Server Volume Type
-(`BuildServerVolumeType`)|`gp2`|Volume type for Build server.
+|Parameter label (name) |Default value|Description|Build server AMI ID
+(`BuildServerAmiId`)|`{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}`|Amazon Machine Image (AMI) ID or Amazon Systems Manager Parameter Store (SSM) parameter expression to retrieve the AMI ID of the build server. Must be compatible with the operating system version used by the Amazon ECS cluster.|Build server EC2 instance type
+(`BuildServerInstanceType`)|`t2.medium`|Type of the EC2 instance on the build server. For more information, see https://aws.amazon.com/ec2/instance-types/[Amazon EC2 Instance Types^].|Build server volume size
+(`BuildServerVolumeSize`)|`100`|Size of EBS volume attached to the EC2 instance on the build server.|Build server volume type
+(`BuildServerVolumeType`)|`gp2`|Type of EBS volume attached to the EC2 instance on the build server. For more information, see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html[Amazon EBS volume types^].
 |===
 .Logging
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|CloudWatch Log Group Name
-(`CloudWatchLogGroupName`)|`/aws/quickstarts/dotnetfx-ecs-cicd`|CloudWatch Log Group Name for build.
+|Parameter label (name) |Default value|Description|Amazon CloudWatch log group name
+(`CloudWatchLogGroupName`)|`/aws/quickstarts/dotnetfx-ecs-cicd`|Name of CloudWatch log group that receives logs from the EC2 instance on the build server.
 |===
 .AWS Quick Start configuration
 [width="100%",cols="16%,11%,73%",options="header",]

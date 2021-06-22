@@ -2,26 +2,25 @@
 
 ==== Prepare your AWS account
 
-Ensure that AWS Security Token Service (AWS STS) in the region you deploy the Quick Start to is enabled.
+Ensure that AWS Security Token Service (AWS STS) is enabled in the Region you deploy the Quick Start. For more information, see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html[Managing AWS STS in an AWS Region].
 
 ==== Prepare for the deployment
 
-. Fork the https://github.com/aws-quickstart/quickstart-dotnetfx-ecs-cicd[GitHub repository]
-. The repository consists of:
-* The AWS CloudFormation templates
-* Application source code
-. Obtain the needed inputs to use later in the installation:
+. Fork the https://github.com/aws-quickstart/quickstart-dotnetfx-ecs-cicd[GitHub repository]. The repository consists of AWS CloudFormation templates and the application source code.
+. Obtain the items in the following table. They are required during the Quick Start deployment.
 
 [cols="1h,3a"]
 |===
 
-|GitHub OAuth Token | 
-* Go to https://github.com/settings/tokens/new.
-* Type “.NET CI/CD” in the Note field.
-* Check the repo box.
-* Check the admin:repo_hook box.
-* Select Generate token. Take note of this token as you will need it when deploying the CloudFormation template.
-|Project Owner's GitHub User ID | Your GitHub login user name.
-|Repository Name | The name of the forked repository from the first step.
-|Branch to Build | The branch name that you want to use in your fork to trigger the AWS CodePipeline.
+|GitHub OAuth token | A personal access token created in GitHub.
+
+. Go to https://github.com/settings/tokens/new.
+. In the *Note* field, enter `.NET CI/CD`.
+. Select the *repo* checkbox.
+. Select the *admin:repo_hook* checkbox.
+. Choose *Generate token*. Copy the token that is generated. It is required when deploying the Quick Start CloudFormation template.
+|Project owner's GitHub user ID | Your GitHub login user name.
+|Repository name | The name of the forked repository from the first step.
+|Branch to build | The branch name that you want to use in your fork to initiate the CI/CD pipeline.
+
 |===

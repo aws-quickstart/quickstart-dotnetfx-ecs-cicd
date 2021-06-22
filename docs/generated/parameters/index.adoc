@@ -1,6 +1,6 @@
 
-=== Parameters for deploying into a new ECS cluster
+=== Launch into a new Amazon ECS cluster
 include::quickstart-dotnetfx-ecs-cicd-new-cluster.template.adoc[]
 
-=== Parameters for deploying into an existing ECS cluster
+=== Launch into an existing ECS cluster
 include::quickstart-dotnetfx-ecs-cicd.template.adoc[]
