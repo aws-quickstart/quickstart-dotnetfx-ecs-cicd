@@ -1,7 +1,7 @@
 
 # .NET Framework CI/CD for Amazon ECS
 
-For architectural details, step-by-step instructions, and customization options, see the [deployment guide](https://aws-quickstart.github.io/quickstart-dotnetfx-ecs-cicd/).
+For architectural details, step-by-step instructions, and customization options, see the [deployment guide](https://fwd.aws/wxV55?).
 
 To post feedback, submit feature ideas, or report bugs, use the **Issues** section of this GitHub repo.
 
