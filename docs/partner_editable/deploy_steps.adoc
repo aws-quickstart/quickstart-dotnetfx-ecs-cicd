@@ -31,11 +31,11 @@ Creation of the CloudFormation stack takes about {deployment_time} to complete. 
 +
 [cols="2,1"]
 |===
-^|https://fwd.aws/XXXXX?[Deploy with a new ECS cluster]
-^|https://fwd.aws/XXXXX?[View template^]
+^|https://fwd.aws/njpgg?[Deploy with a new ECS cluster]
+^|https://fwd.aws/633xW?[View template^]
 
-^|https://fwd.aws/XXXXX?[Deploy with an existing ECS cluster^]
-^|https://fwd.aws/XXXXX?[View template^]
+^|https://fwd.aws/a7wDn?[Deploy with an existing ECS cluster^]
+^|https://fwd.aws/BwzG6?[View template^]
 |===
 +
 . Check the AWS Region displayed in the upper-right corner of the navigation bar, and change it if necessary. This Region is where {partner-product-short-name} deploys. The template is launched in the {default_deployment_region} Region by default. For other Regions, see link:#_supported_regions[Supported Regions] earlier in this guide. Choose *Next*.
