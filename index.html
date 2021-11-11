@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.15">
+<meta name="generator" content="Asciidoctor 2.0.16">
 <title>.NET Framework CI/CD for Amazon ECS on the AWS Cloud</title>
 <style>
 
@@ -182,7 +182,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
   padding-top:0;
   overflow:hidden;
   background:#283e5b;
-  /* border-bottom: 4px solid #435c7c; */
+  border-bottom: 4px solid #435c7c;
   width:320px;
   height:154px;
   top:0;
@@ -411,7 +411,7 @@ span.icon>.fa{cursor:default}
 a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
-.admonitionblock td.icon .icon-tip::before{content:"\f0eb";color: rgb(3, 87, 21);}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
 .admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
 .admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
 .admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
@@ -747,43 +747,8 @@ p {
   font-weight  : 300 !important;
 }
 
-/* image layout */
-#toc.toc2 #toctitle {
-  background-image: url("images/AWS-Logo.svg");
-  background-repeat: no-repeat;
-  background-size: 50%;
-  background-position: center;
-  width: auto;
-  height: 15%;
-}
-
-/* Left Navbar size */
-#toc.toc2 {
-  width: 17%;
-  min-width: 15em;
-}
-
-/* auto width for main page */
-body.toc2 {
-  padding-left: 22%;
-  padding-right: 2%;
-}
-
-/* hide left nav bar if page size is smaller than 767px */
-@media screen and (max-width: 767px) {
-  #toc {
-      display: none !important;
-  }
-  body.toc2 {
-    padding-left: 1%;
-    padding-right: 1%;
-    position: relative;
-  }
-
-  #content {
-    padding-left: 2%;
-    padding-right: 2%;
-  }
+#toc.toc2 #toctitle{
+  background-image: url('images/AWS-Logo.svg');
 }
 
 /* QS Tables */
@@ -1928,15 +1893,15 @@ and to share your customizations with others.</p>
 </div>
 <p class="footer-text">
 <!-- We can use document attributes: -->
-<!-- Generated with Asciidoctor v2.0.15. -->
+<!-- Generated with Asciidoctor v2.0.16. -->
 <a href="https://aws.amazon.com/privacy/">Privacy</a> | <a href="https://aws.amazon.com/terms/">Site terms</a> | &copy; 2021, Amazon Web Services, Inc. or its affiliates. All rights reserved.
 </p>
 </body>
 </html>
 <!--
 repo commit:
-ca1787963b9bbf593f1d7fe2fe3b2049851c416f
+28f81406c2f50c0cb019b523738762d769be039d
 
 submodule config:
-+41862fa5fb846466fba46a36faf67e2a77c2bfc5 docs/boilerplate (heads/main)
+ f34ac29b8e944857fd3d0abb6b9cf00d37442f0c docs/boilerplate (remotes/origin/revert-131-doc-edits-41-gf34ac29)
 -->
