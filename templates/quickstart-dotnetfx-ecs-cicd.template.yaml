@@ -59,7 +59,7 @@ Parameters:
   BuildServerAmiId:
     Type: String
     Description: AMI ID or SSM Parameter expression to use to retrieve the AMI ID for the build server. Must be compatible with operating system version used by ECS cluster.
-    Default: "{{ssm:/aws/service/ami-windows-latest/Windows_Server-2004-English-Core-ECS_Optimized/image_id}}"
+    Default: "{{ssm:/aws/service/ami-windows-latest/Windows_Server-2019-English-Core-ECS_Optimized/image_id}}"
   BuildServerInstanceType:
     Type: String
     Description: Type of the EC2 instance on the build server. For more information, see https://aws.amazon.com/ec2/instance-types/[Amazon EC2 Instance Types^].
