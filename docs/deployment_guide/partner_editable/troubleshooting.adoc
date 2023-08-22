@@ -2,5 +2,27 @@
 
 For troubleshooting common Partner Solution issues, refer to the https://fwd.aws/rA69w?[AWS Partner Solution General Information Guide^] and https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html[Troubleshooting CloudFormation^].
 
-// == Resources
-// Uncomment section and add links to any external resources that are specified by the partner.
+=== CI/CD pipeline fails in build stage
+Select the details link in the build stage. Use the Build logs tab to view the log output from the stage. 
+
+While the error message returned from the SSM document execution is logged, this may not provide enough information to diagnose the problem. If this is the case, to view the SSM output for each step, follow these steps:
+
+* Look for the log entry that begins with "Running execution". The log entry will look similar to <<logentry>>. 
+
+[#logentry]
+.Running execution log entry
+image::../docs/deployment_guide/images/ssm-execution-id.png[SSM Execution ID]
+
+* Navigate to the https://console.aws.amazon.com/systems-manager/automation?region=us-east-1[AWS Systems Manager Automation console] and select the automation execution matching the ID in the log entry.
+* In the *Executed Steps* section, select the step that failed.
+* In the *Failure Details* section, find the exception message.
+
+=== CI/CD pipeline fails in deploy stage
+Typically a pipeline failure in the deploy stage is due to a container instance not meeting all of the task definition's requirements. To view the details as to why the task could not be updated, follow these steps.
+
+* Select the details link in the deploy stage. This will navigate you to the Amazon ECS Service *Deployments* tab.
+* Select the *Events* tab of the ECS Service to view the log. Use the information in the *Message* column to diagnose the problem, as shown in <<taskfailure>>.
+
+[#taskfailure]
+.Diagnosing a task failure
+image::../docs/deployment_guide/images/task-update-failure.png[Task Update Failure]

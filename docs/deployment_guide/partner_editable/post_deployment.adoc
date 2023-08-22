@@ -1,3 +1,12 @@
 // Include any postdeployment steps here, such as steps necessary to test that the deployment was successful. If there are no postdeployment steps, leave this file empty.
 
 == Postdeployment steps
+To test your pipeline, do the following:
+
+. Make a code change to your configured source repository, commit, and push the change.
+. Open the CodePipeline console at https://console.aws.amazon.com/codepipeline/.
+. Choose your pipeline from the list.
+. Watch the pipeline progress through its stages. Your pipeline should complete and your Amazon ECS service runs the Docker image that was created from your code change.
+. Open the https://console.aws.amazon.com/ecs/[Amazon ECS console^].
+. Navigate to the Amazon ECS task updated by the pipeline and expand the container details.
+. Open the URL for the application. Confirm that your application sample is deployed.

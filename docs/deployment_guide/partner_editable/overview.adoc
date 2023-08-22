@@ -1,10 +1,7 @@
 This guide covers the information you need to deploy the {partner-product-name} Partner Solution in the AWS Cloud.
 
-// Fill in the info in <angle brackets> for use on the landing page only: 
-This Amazon Web Services (AWS) Partner Solution deploys [<product name>](<partner's marketing product page>) in the AWS Cloud so that <purpose>. This solution is for <target users> who want to <do what> so that <why>. For more information, refer to the [<product name> documentation](<URL>).
+This Amazon Web Services (AWS) Partner Solution deploys a continuous integration and continuous delivery (CI/CD) pipeline on the Amazon Web Services (AWS) Cloud for .NET applications that run on Amazon Elastic Container Service (Amazon ECS). Your application is updated each time code is changed on your configured GitHub repository branch without interrupting the Amazon ECS service.
 
-// Deploying this solution does not guarantee an organization’s compliance with any laws, certifications, policies, or other regulations. [Uncomment this statement only for solutions that relate to compliance. We'll add the corresponding reference part to the landing page and get legal approval before publishing.]
+AWS CodePipeline creates a pipeline with source, build, and deploy stages. During the source stage, code is retrieved from GitHub and stored on Amazon Simple Storage Service (Amazon S3). In the build stage, AWS CodeBuild and AWS Systems Manager build a new Docker container image of your code on a temporary Amazon Elastic Compute Cloud (Amazon EC2) instance. In the deploy stage, AWS CodeDeploy deploys the updated image to Amazon ECS.
 
-// For advanced information about the product, troubleshooting, or additional functionality, refer to the https://{partner-solution-github-org}.github.io/{partner-solution-project-name}/operational/index.html[Operational Guide^].
-
-// For information about using this Partner Solution for migrations, refer to the https://{partner-solution-github-org}.github.io/{partner-solution-project-name}/migration/index.html[Migration Guide^].
+This solution is for developers who want to deploy a continuous integration and continuous delivery (CI/CD) pipeline on the AWS Cloud to update .NET applications on Amazon Elastic Container Service (Amazon ECS).
