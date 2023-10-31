@@ -1,8 +1,3 @@
-
-# .NET Framework CI/CD for Amazon ECS
-
-For architectural details, step-by-step instructions, and customization options, see the [deployment guide](https://fwd.aws/wxV55?).
-
-To post feedback, submit feature ideas, or report bugs, use the **Issues** section of this GitHub repo. 
-
-To submit code for this Quick Start, see the [AWS Quick Start Contributor's Kit](https://aws-quickstart.github.io/).
+# quickstart-dotnetfx-ecs-cicd 
+## This repository has been deprecated in favor of https://github.com/aws-ia/cfn-ps-dotnetfx-ecs-cicd. 
+***We will archive this repository and keep it publicly available until May 1, 2024.***
